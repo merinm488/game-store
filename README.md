@@ -23,9 +23,9 @@ A central hub and launcher for my browser-based games. This acts as a simple, st
 
 | Game | Description | Link |
 |------|-------------|------|
-| 🐍 Snake Rush | A fast-paced snake game with classic gameplay | [Play](https://merinm488.github.io/snake-rush/) |
-| 💣 Minesweeper | Classic puzzle game - find all the mines! | [Play](https://merinm488.github.io/minesweeper/) |
-| 📦 Sokoban | Push boxes to their target locations | [Play](https://merinm488.github.io/sokoban/) |
+| 🐍 Snake Rush | A fast-paced snake game with classic gameplay |
+| 💣 Minesweeper | Classic puzzle game - find all the mines! |
+| 📦 Sokoban | Push boxes to their target locations |
 
 ## 🚀 Live Demo
 
@@ -89,23 +89,6 @@ Themes are saved to localStorage, so your choice persists across visits.
 The layout adapts seamlessly:
 - **Desktop**: Horizontal cards with icon, content, and button side-by-side
 - **Mobile**: Vertical stacked layout for better touch interaction
-
-## 🔧 Development
-
-To run locally:
-
-```bash
-# Using Python 3
-cd game_store
-python3 -m http.server 5500
-
-# Using Node.js
-npx http-server -p 5500
-
-# Or simply open index.html in your browser
-```
-
-Then visit `http://localhost:5500`
 
 ## 📝 License
 
