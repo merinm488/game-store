@@ -21,8 +21,8 @@ A central hub and launcher for my browser-based games. This acts as a simple, st
 
 ## 🕹️ Games Included
 
-| Game | Description | Link |
-|------|-------------|------|
+| Game | Description |
+|------|-------------|
 | 🐍 Snake Rush | A fast-paced snake game with classic gameplay |
 | 💣 Minesweeper | Classic puzzle game - find all the mines! |
 | 📦 Sokoban | Push boxes to their target locations |
