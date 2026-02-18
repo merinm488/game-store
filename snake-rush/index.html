@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Snake Rush - A classic snake game with themes, sounds, and responsive design">
+    <meta name="theme-color" content="#2a8a6a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Snake Rush">
+    <title>Snake Rush</title>
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/themes.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=21">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Intro Splash Screen -->
+        <div id="introSplash" class="intro-splash">
+            <h1 class="intro-title">
+                <span class="snake-emoji-large">🐍</span>
+                Snake Rush
+                <span class="snake-emoji-large">🐍</span>
+            </h1>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen">
+            <div class="menu-content-full">
+                <div class="menu-title-snakes">
+                    <span class="title-snake-top">🐍</span>
+                    <h1 class="menu-title">Snake Rush</h1>
+                    <span class="title-snake-bottom">🐍</span>
+                </div>
+                <div class="menu-logo">
+                    <div class="snake-animation">
+                        <span class="snake-emoji-large">🐍</span>
+                    </div>
+                </div>
+                <div class="high-score-badge">
+                    <span class="score-label">HIGH SCORE</span>
+                    <span id="highScoreMenu" class="score-value-large">0</span>
+                </div>
+                <div class="menu-buttons-full">
+                    <button id="playBtn" class="btn btn-primary btn-large">
+                        <span class="btn-icon">▶</span>
+                        PLAY
+                    </button>
+                    <button id="howToPlayBtn" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">?</span>
+                        HOW TO PLAY
+                    </button>
+                    <button id="settingsBtn" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">⚙</span>
+                        SETTINGS
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="game-header">
+                <!-- Row 1: Score, Level/Target/Timer, Pause/Quit -->
+                <div class="header-row-main">
+                    <div class="score-display">
+                        <span class="score-label">Score:</span>
+                        <span id="currentScore" class="score-value">0</span>
+                    </div>
+                    <div class="level-display" id="levelDisplay">
+                        <span class="score-label">Level:</span>
+                        <span id="currentLevel" class="score-value">1</span>
+                    </div>
+                    <div class="target-display" id="targetDisplay">
+                        <span class="score-label">Target:</span>
+                        <span id="targetScore" class="score-value">100</span>
+                    </div>
+                    <div id="timerDisplay" class="timer-display hidden">
+                        <div class="timer-icon">⏰</div>
+                        <span id="currentTime" class="timer-value">60</span>
+                        <div id="clockBonus" class="clock-bonus hidden">+15s</div>
+                    </div>
+                    <div class="header-buttons">
+                        <button id="pauseBtn" class="btn-icon-only" aria-label="Pause">⏸</button>
+                        <button id="quitBtnHeader" class="btn-icon-only" aria-label="Quit">✕</button>
+                    </div>
+                </div>
+            </div>
+            <div class="game-container">
+                <canvas id="gameCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pauseMenu" class="modal-overlay">
+            <div class="modal">
+                <h2>Paused</h2>
+                <div class="modal-buttons">
+                    <button id="resumeBtn" class="btn btn-primary">Resume</button>
+                    <button id="quitBtn" class="btn btn-secondary">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="levelCompleteScreen" class="modal-overlay">
+            <div class="modal">
+                <h2>🎉 Level Complete!</h2>
+                <div class="score-summary">
+                    <p>Your Score: <span id="levelCompleteScore" class="score-value">0</span></p>
+                    <p>Target Score: <span id="levelCompleteTarget" class="score-value">100</span></p>
+                </div>
+                <div class="modal-buttons">
+                    <button id="nextLevelBtn" class="btn btn-primary">Next Level</button>
+                    <button id="playAgainLevelBtn" class="btn btn-primary">Play Again</button>
+                    <button id="quitLevelBtn" class="btn btn-secondary">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="modal-overlay">
+            <div class="modal">
+                <h2 id="gameOverTitle">Game Over!</h2>
+                <div class="score-summary">
+                    <p>Your Score: <span id="finalScore" class="score-value">0</span></p>
+                    <p>High Score: <span id="bestScore" class="score-value">0</span></p>
+                    <p id="levelTarget" class="hidden">Target Score: <span class="score-value">100</span></p>
+                    <p id="levelCompletedDisplay" class="level-complete hidden">✅ Level Complete!</p>
+                    <p id="newHighScore" class="new-high-score hidden">🎉 New High Score! 🎉</p>
+                    <p id="bonusPoints" class="bonus-points hidden">Bonus Points: <span class="score-value">+0</span></p>
+                </div>
+                <div class="modal-buttons">
+                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+                    <button id="nextLevelGameOverBtn" class="btn btn-primary hidden">Next Level</button>
+                    <button id="menuBtn" class="btn btn-secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Select Modal -->
+        <div id="levelSelectModal" class="modal-overlay">
+            <div class="modal level-select-modal">
+                <h2>Select Level</h2>
+                <div class="levels-grid" id="levelsGrid">
+                    <!-- Levels will be generated by JS -->
+                </div>
+                <button id="closeLevelSelect" class="btn btn-secondary">Back</button>
+            </div>
+        </div>
+
+        <!-- How to Play Modal -->
+        <div id="howToPlayModal" class="modal-overlay">
+            <div class="modal">
+                <h2>How to Play</h2>
+                <div class="instructions">
+                    <section>
+                        <h3>🎯 Objective</h3>
+                        <p>Guide your snake to eat fruits and grow longer. Avoid hitting the walls, yourself, or obstacles!</p>
+                    </section>
+                    <section>
+                        <h3>🎮 Controls</h3>
+                        <div class="controls-list">
+                            <div class="control-item">
+                                <span class="control-icon">⌨️</span>
+                                <span><strong>Desktop:</strong> Arrow keys or WASD</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-icon">👆</span>
+                                <span><strong>Mobile:</strong> Swipe in any direction</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="control-icon">⏸</span>
+                                <span><strong>Pause:</strong> Press Space or tap pause button</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>⭐ Bonus Points</h3>
+                        <p>Eat fruits quickly to earn bonus points! Watch for the golden fruit 🌟 that appears randomly for +50 points!</p>
+                    </section>
+                    <section>
+                        <h3>🎮 Game Modes</h3>
+                        <div class="mode-item">
+                            <h4>♾️ Endless Mode</h4>
+                            <p>Play without limits! Keep growing your snake and beat your high score. No levels, no targets—just endless snake action!</p>
+                        </div>
+                        <div class="mode-item">
+                            <h4>🎯 Levels Mode</h4>
+                            <p>Complete levels by reaching the target score. Each level has unique obstacles and challenges. Higher levels have more obstacles!</p>
+                        </div>
+                        <div class="mode-item">
+                            <h4>⏱️ Time Mode</h4>
+                            <p>Race against the clock! You have 60 seconds to score as many points as possible. Different fruits give different points - rarer fruits are worth more! Avoid tamarind at all costs as they deduct 60 points. Look out for clock power-ups that add +15 seconds to your timer. Plan your route carefully to maximize your score before time runs out!</p>
+                            <ul class="fruit-points-list">
+                                <li>🍓 Strawberry: <strong class="legend-value">50 points</strong></li>
+                                <li>🍒 Cherry: <strong class="legend-value">40 points</strong></li>
+                                <li>🍎 Apple: <strong class="legend-value">30 points</strong></li>
+                                <li>🍇 Grape: <strong class="legend-value">20 points</strong></li>
+                                <li>🍊 Orange: <strong class="legend-value">10 points</strong></li>
+                                <li>🥜 Tamarind: <strong class="legend-value legend-danger">-60 points</strong></li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <button id="closeHowToPlay" class="btn btn-primary">Got it!</button>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal-overlay">
+            <div class="modal settings-modal">
+                <h2>Settings</h2>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label for="modeSelect">
+                            <span class="setting-label">Game Mode</span>
+                            <span class="setting-icon">🎮</span>
+                        </label>
+                        <select id="modeSelect" class="setting-select">
+                            <option value="endless">♾️ Endless</option>
+                            <option value="levels">🎮 Levels</option>
+                            <option value="time">⏱️ Time Mode</option>
+                        </select>
+                    </div>
+                    <div class="setting-group" id="settingGroupLevels">
+                        <button id="levelsBtn" class="btn btn-secondary levels-settings-btn">
+                            <span class="btn-icon">🎮</span>
+                            Select Level
+                        </button>
+                    </div>
+                    <div class="setting-group">
+                        <label for="themeSelect">
+                            <span class="setting-label">Theme</span>
+                            <span class="setting-icon">🎨</span>
+                        </label>
+                        <select id="themeSelect" class="setting-select">
+                            <option value="classic">Classic</option>
+                            <option value="neon">Neon</option>
+                            <option value="ocean">Ocean</option>
+                            <option value="berry">Berry</option>
+                            <option value="sunset">Sunset</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <div class="setting-group" id="settingGroupFruit">
+                        <label for="fruitSelect">
+                            <span class="setting-label">Fruit Type</span>
+                            <span class="setting-icon" id="fruitTypeIcon">🍎</span>
+                        </label>
+                        <select id="fruitSelect" class="setting-select">
+                            <option value="apple">Apple 🍎</option>
+                            <option value="cherry">Cherry 🍒</option>
+                            <option value="strawberry">Strawberry 🍓</option>
+                            <option value="orange">Orange 🍊</option>
+                            <option value="grape">Grape 🍇</option>
+                            <option value="random">Random 🎲</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="difficultySelect">
+                            <span class="setting-label">Difficulty</span>
+                            <span class="setting-icon">⚡</span>
+                        </label>
+                        <select id="difficultySelect" class="setting-select">
+                            <option value="easy" selected>Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="setting-group sound-section">
+                        <h3 class="sound-title">🔊 Sound Settings</h3>
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-toggle">
+                            <span class="setting-label">Master Sound</span>
+                            <input type="checkbox" id="masterSoundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-toggle">
+                            <span class="setting-label">🎵 BGM</span>
+                            <input type="checkbox" id="bgmSoundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <button id="closeSettings" class="btn btn-primary">Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/audio.js?v=15"></script>
+    <script src="js/input.js?v=14"></script>
+    <script src="js/renderer.js?v=30"></script>
+    <script src="js/game.js?v=42"></script>
+    <script src="js/ui.js?v=32"></script>
+</body>
+</html>

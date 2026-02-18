@@ -3,18 +3,18 @@
     "title": "Snake Rush",
     "description": "A fast-paced snake game with classic gameplay",
     "emoji": "🐍",
-    "url": "https://merinm488.github.io/snake-rush/"
+    "url": "./snake-rush/"
   },
   {
     "title": "Minesweeper",
     "description": "Classic puzzle game - find all the mines without triggering them",
     "emoji": "💣",
-    "url": "https://merinm488.github.io/minesweeper/"
+    "url": "./minesweeper/"
   },
   {
     "title": "Sokoban",
     "description": "Push boxes to their target locations in this puzzle game",
     "emoji": "📦",
-    "url": "https://merinm488.github.io/sokoban/"
+    "url": "./sokoban/"
   }
 ]

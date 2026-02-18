@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Sokoban - Push boxes to targets!">
+    <meta name="theme-color" content="#8d6e63">
+    <title>Sokoban</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Menu Screen -->
+        <section id="menu-screen" class="screen active">
+            <div class="menu-container">
+                <div class="menu-logo">
+                    <div class="logo-icon">📦</div>
+                    <div class="logo-boxes">
+                        <span class="mini-box box-player"></span>
+                        <span class="mini-box box-regular"></span>
+                        <span class="mini-box box-target"></span>
+                    </div>
+                </div>
+                <div class="menu-buttons">
+                    <button class="btn btn-primary" id="btn-play">
+                        <span class="btn-icon">▶</span>
+                        Play
+                    </button>
+                    <button class="btn btn-secondary" id="btn-how-to-play">
+                        <span class="btn-icon">?</span>
+                        How to Play
+                    </button>
+                    <button class="btn btn-secondary" id="btn-settings">
+                        <span class="btn-icon">⚙</span>
+                        Settings
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Play Screen -->
+        <section id="how-to-play-screen" class="screen">
+            <div class="modal-container">
+                <div class="modal">
+                    <h2>How to Play</h2>
+                    <div class="instructions">
+                        <p><strong>Objective:</strong> Push all boxes onto the target locations.</p>
+                        <div class="game-elements">
+                            <div class="element-row"><div class="demo-cell player"></div> <strong>You</strong> - Move around the warehouse</div>
+                            <div class="element-row"><div class="demo-cell wall"></div> <strong>Wall</strong> - Cannot pass through</div>
+                            <div class="element-row"><div class="demo-cell box"></div> <strong>Box</strong> - Push it onto targets</div>
+                            <div class="element-row"><div class="demo-cell target"></div> <strong>Target</strong> - Goal location for boxes</div>
+                            <div class="element-row"><div class="demo-cell box-on-target"></div> <strong>Complete</strong> - Box on target</div>
+                        </div>
+                        <p><strong>Controls:</strong></p>
+                        <ul class="controls-list">
+                            <li>Desktop: Arrow Keys or WASD to move, Z to Undo, Space to Pause/Resume</li>
+                            <li>Touch: Swipe in the direction you want to move</li>
+                        </ul>
+                        <p class="tip"><strong>Tip:</strong> You can only push one box at a time. Pulling is not allowed!</p>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="btn-back-from-how-to">Back</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Screen -->
+        <section id="settings-screen" class="screen">
+            <div class="modal-container">
+                <div class="modal">
+                    <h2>Settings</h2>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <label for="theme-select">Theme</label>
+                            <select id="theme-select" class="select-input">
+                                <option value="classic">Classic</option>
+                                <option value="dark">Dark (B&W)</option>
+                                <option value="light">Light</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="level-select">Starting Level</label>
+                            <select id="level-select" class="select-input">
+                            </select>
+                        </div>
+                        <div class="setting-item toggle-item">
+                            <label for="sound-toggle">Sound</label>
+                            <label class="toggle">
+                                <input type="checkbox" id="sound-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn btn-primary" id="btn-back-from-settings">Save</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Screen -->
+        <section id="game-screen" class="screen">
+            <div class="game-container">
+                <!-- Game Header -->
+                <header class="game-header">
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-label">Moves</span>
+                            <span class="stat-value" id="moves-display">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Time</span>
+                            <span class="stat-value" id="timer-display">00:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Level</span>
+                            <span class="stat-value" id="level-display">1</span>
+                        </div>
+                    </div>
+                    <div class="header-controls">
+                        <button class="btn-icon" id="btn-pause" title="Pause">⏸</button>
+                    </div>
+                </header>
+
+                <!-- Game Board -->
+                <main class="game-main">
+                    <div id="game-board" class="game-board"></div>
+                </main>
+
+                <!-- Game Footer -->
+                <footer class="game-footer">
+                    <div class="best-stats">
+                        <div class="best-stat">
+                            <span class="best-label">Best Moves</span>
+                            <span class="best-value" id="best-moves-display">-</span>
+                        </div>
+                        <div class="best-stat">
+                            <span class="best-label">Best Time</span>
+                            <span class="best-value" id="best-time-display">-</span>
+                        </div>
+                    </div>
+                    <div class="footer-controls">
+                        <button class="btn btn-small" id="btn-undo" title="Undo Move (Z)">↶ Undo</button>
+                        <button class="btn btn-small" id="btn-reset" title="Reset Level">↺ Reset</button>
+                        <button class="btn btn-small" id="btn-quit" title="Quit to Menu">✕ Quit</button>
+                    </div>
+                </footer>
+            </div>
+        </section>
+
+        <!-- Pause Modal -->
+        <div id="pause-modal" class="modal-overlay hidden">
+            <div class="modal modal-small">
+                <h2>Paused</h2>
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" id="btn-resume">Resume</button>
+                    <button class="btn btn-secondary" id="btn-restart">Restart</button>
+                    <button class="btn btn-secondary" id="btn-quit-pause">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Complete Modal -->
+        <div id="level-complete-modal" class="modal-overlay hidden">
+            <div class="modal">
+                <h2 class="complete-title">🎉 Level Complete!</h2>
+                <div class="complete-stats">
+                    <div class="complete-stat">
+                        <span class="stat-label">Moves</span>
+                        <span class="stat-value" id="complete-moves">0</span>
+                    </div>
+                    <div class="complete-stat">
+                        <span class="stat-label">Time</span>
+                        <span class="stat-value" id="complete-time">00:00</span>
+                    </div>
+                </div>
+                <div id="new-best" class="new-best hidden">
+                    <p class="best-moves">🏆 New Best Moves!</p>
+                    <p class="best-time">🏆 New Best Time!</p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" id="btn-next-level">Next Level</button>
+                    <button class="btn btn-secondary" id="btn-play-again">Play Again</button>
+                    <button class="btn btn-secondary" id="btn-quit-complete">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tutorial Overlay -->
+        <div id="tutorial-overlay" class="tutorial-overlay hidden">
+            <div class="tooltip-box">
+                <div class="tooltip-content">
+                    <h3 id="tooltip-title">Welcome!</h3>
+                    <p id="tooltip-message">Let's learn how to play Sokoban!</p>
+                </div>
+                <div class="tooltip-progress">
+                    <span id="tooltip-step">1</span> / <span id="tooltip-total">5</span>
+                </div>
+                <div class="tooltip-buttons">
+                    <button class="btn btn-secondary" id="btn-tooltip-skip">Skip</button>
+                    <button class="btn btn-primary" id="btn-tooltip-next">Next</button>
+                </div>
+            </div>
+            <div id="tutorial-spotlight" class="tutorial-spotlight"></div>
+        </div>
+    </div>
+
+    <script src="levels.js"></script>
+    <script src="game.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .catch(() => {
+                        // Service worker registration failed
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
