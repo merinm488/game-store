@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Game Store - Play Snake Rush, Minesweeper, and more!">
+    <title>Game Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <p class="subtitle">Choose a game to play</p>
+                <div class="settings-dropdown">
+                    <button id="settings-btn" class="settings-btn">⚙️</button>
+                    <div id="theme-menu" class="theme-menu">
+                        <span class="theme-menu-label">Theme</span>
+                        <button class="theme-btn" data-theme="purple">💜 Purple</button>
+                        <button class="theme-btn" data-theme="dark">⚫ Dark</button>
+                        <button class="theme-btn" data-theme="light">🌸 Light</button>
+                        <button class="theme-btn" data-theme="ocean">🌊 Ocean</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search games...">
+                <button id="clear-btn" class="clear-btn">✕</button>
+                <button id="search-btn" class="search-btn">🔍</button>
+            </div>
+        </header>
+
+        <main id="games-grid" class="games-grid">
+            <!-- Games will be dynamically loaded here -->
+            <div class="loading">Loading games...</div>
+        </main>
+
+        <footer>
+            <p>Built with ❤️ for fun games</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
