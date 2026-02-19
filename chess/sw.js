@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chess-v2';
+const CACHE_NAME = 'chess-v5';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -11,8 +11,18 @@ const ASSETS_TO_CACHE = [
     './js/ai.js',
     './js/renderer.js',
     './js/ui.js',
+    './icons/icon-72.png',
+    './icons/icon-96.png',
+    './icons/icon-128.png',
+    './icons/icon-144.png',
+    './icons/icon-152.png',
     './icons/icon-192.png',
+    './icons/icon-192-maskable.png',
+    './icons/icon-384.png',
     './icons/icon-512.png',
+    './icons/icon-512-maskable.png',
+    './icons/icon-1024.png',
+    './icons/icon-1024-maskable.png',
     './icons/apple-touch-icon.png'
 ];
 
