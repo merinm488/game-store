@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Chess - Play against AI or a friend with adaptive difficulty">
+    <meta name="theme-color" content="#4a7c59">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Chess">
+    <title>Chess</title>
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/themes.css?v=1">
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Intro Splash Screen -->
+        <div id="introSplash" class="intro-splash">
+            <h1 class="intro-title">
+                <span class="chess-emoji">♚</span>
+                Chess
+                <span class="chess-emoji">♔</span>
+            </h1>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen">
+            <div class="menu-content-full">
+                <div class="menu-logo">
+                    <div class="chess-animation">
+                        <span class="chess-emoji-large">♔</span>
+                    </div>
+                </div>
+                <h1 class="menu-title">Let's play!</h1>
+
+                <!-- Score Display -->
+                <div class="score-record">
+                    <div class="record-item">
+                        <span class="record-value" id="winsMenu">0</span>
+                        <span class="record-label">Wins</span>
+                    </div>
+                    <div class="record-item">
+                        <span class="record-value" id="drawsMenu">0</span>
+                        <span class="record-label">Draws</span>
+                    </div>
+                    <div class="record-item">
+                        <span class="record-value" id="lossesMenu">0</span>
+                        <span class="record-label">Losses</span>
+                    </div>
+                </div>
+
+                <div class="menu-buttons-full">
+                    <button id="playBtn" class="btn btn-primary btn-large">
+                        <span class="btn-icon">▶</span>
+                        PLAY
+                    </button>
+                    <button id="howToPlayBtn" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">?</span>
+                        HOW TO PLAY
+                    </button>
+                    <button id="settingsBtn" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">⚙</span>
+                        SETTINGS
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="game-header">
+                <div class="header-row-main">
+                    <div class="turn-indicator">
+                        <span id="turnColor" class="turn-color white"></span>
+                        <span id="turnText" class="turn-text">White's Turn</span>
+                    </div>
+                    <div class="game-status" id="gameStatus"></div>
+                    <div class="header-buttons">
+                        <button id="pauseBtn" class="btn-icon-only" aria-label="Pause">⏸</button>
+                        <button id="quitBtnHeader" class="btn-icon-only" aria-label="Quit">✕</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-layout">
+                <div class="board-container">
+                    <div class="captured-pieces captured-black" id="capturedBlack"></div>
+                    <div id="chessBoard" class="chess-board"></div>
+                    <div class="captured-pieces captured-white" id="capturedWhite"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pauseMenu" class="modal-overlay">
+            <div class="modal">
+                <h2>Paused</h2>
+                <div class="modal-buttons">
+                    <button id="resumeBtn" class="btn btn-primary">Resume</button>
+                    <button id="restartBtn" class="btn btn-secondary">Restart</button>
+                    <button id="quitBtn" class="btn btn-secondary">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="modal-overlay">
+            <div class="modal">
+                <h2 id="gameOverTitle">Checkmate!</h2>
+                <div class="game-result" id="gameResult">
+                    <p id="resultText">White wins!</p>
+                </div>
+                <div class="score-summary">
+                    <h3>Game Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="movesCount">0</span>
+                            <span class="stat-label">Moves</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="capturedPieces">0</span>
+                            <span class="stat-label">Captures</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+                    <button id="menuBtn" class="btn btn-secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promotion Modal -->
+        <div id="promotionModal" class="modal-overlay">
+            <div class="modal promotion-modal">
+                <h2>Promote Pawn</h2>
+                <div class="promotion-pieces" id="promotionPieces"></div>
+            </div>
+        </div>
+
+        <!-- How to Play Modal -->
+        <div id="howToPlayModal" class="modal-overlay">
+            <div class="modal">
+                <h2>How to Play</h2>
+                <div class="instructions">
+                    <section>
+                        <h3>🎯 Objective</h3>
+                        <p>Checkmate your opponent's king! The king is in checkmate when it is under attack and cannot escape.</p>
+                    </section>
+                    <section>
+                        <h3>♟️ Pieces & Movement</h3>
+                        <div class="piece-guide">
+                            <div class="piece-item">
+                                <span class="piece-symbol">♔</span>
+                                <span class="piece-name">King</span>
+                                <span class="piece-moves">One square any direction</span>
+                            </div>
+                            <div class="piece-item">
+                                <span class="piece-symbol">♕</span>
+                                <span class="piece-name">Queen</span>
+                                <span class="piece-moves">Any direction, any distance</span>
+                            </div>
+                            <div class="piece-item">
+                                <span class="piece-symbol">♖</span>
+                                <span class="piece-name">Rook</span>
+                                <span class="piece-moves">Horizontal or vertical</span>
+                            </div>
+                            <div class="piece-item">
+                                <span class="piece-symbol">♗</span>
+                                <span class="piece-name">Bishop</span>
+                                <span class="piece-moves">Diagonals only</span>
+                            </div>
+                            <div class="piece-item">
+                                <span class="piece-symbol">♘</span>
+                                <span class="piece-name">Knight</span>
+                                <span class="piece-moves">L-shape (2+1 squares)</span>
+                            </div>
+                            <div class="piece-item">
+                                <span class="piece-symbol">♙</span>
+                                <span class="piece-name">Pawn</span>
+                                <span class="piece-moves">Forward, captures diagonal</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>✨ Special Moves</h3>
+                        <ul class="special-moves">
+                            <li><strong>Castling:</strong> King moves 2 squares toward rook, rook jumps over</li>
+                            <li><strong>En Passant:</strong> Capture pawn that just moved 2 squares</li>
+                            <li><strong>Promotion:</strong> Pawn becomes Queen/Rook/Bishop/Knight at end</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>🤖 AI Opponent</h3>
+                        <p>The AI adapts to your skill level! It will play stronger if you're winning and easier if you're struggling. Keep playing to find your level!</p>
+                    </section>
+                </div>
+                <button id="closeHowToPlay" class="btn btn-primary">Got it!</button>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal-overlay">
+            <div class="modal settings-modal">
+                <h2>Settings</h2>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label for="opponentSelect">
+                            <span class="setting-label">Opponent</span>
+                            <span class="setting-icon">🎮</span>
+                        </label>
+                        <select id="opponentSelect" class="setting-select">
+                            <option value="ai">AI (Adaptive)</option>
+                            <option value="human">Human (2 Player)</option>
+                        </select>
+                    </div>
+                    <div class="setting-group" id="colorSelectGroup">
+                        <label for="colorSelect">
+                            <span class="setting-label">Play As</span>
+                            <span class="setting-icon">♔</span>
+                        </label>
+                        <select id="colorSelect" class="setting-select">
+                            <option value="white">White (First Move)</option>
+                            <option value="black">Black</option>
+                            <option value="random">Random</option>
+                        </select>
+                    </div>
+                    <div class="setting-group" id="difficultyGroup">
+                        <label for="difficultySelect">
+                            <span class="setting-label">Difficulty</span>
+                            <span class="setting-icon">🎯</span>
+                        </label>
+                        <select id="difficultySelect" class="setting-select">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="themeSelect">
+                            <span class="setting-label">Theme</span>
+                            <span class="setting-icon">🎨</span>
+                        </label>
+                        <select id="themeSelect" class="setting-select">
+                            <option value="classic">Classic</option>
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+                    <div class="setting-group sound-section">
+                        <h3 class="sound-title">🔊 Sound Settings</h3>
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-toggle">
+                            <span class="setting-label">Sound</span>
+                            <input type="checkbox" id="masterSoundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <button id="closeSettings" class="btn btn-primary">Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/audio.js?v=1"></script>
+    <script src="js/pieces.js?v=1"></script>
+    <script src="js/game.js?v=1"></script>
+    <script src="js/ai.js?v=1"></script>
+    <script src="js/renderer.js?v=1"></script>
+    <script src="js/ui.js?v=1"></script>
+</body>
+</html>

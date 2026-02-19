@@ -16,5 +16,11 @@
     "description": "Push boxes to their target locations in this puzzle game",
     "emoji": "📦",
     "url": "./sokoban/"
+  },
+  {
+    "title": "Chess",
+    "description": "Classic chess with adaptive AI opponent",
+    "emoji": "♚",
+    "url": "./chess/"
   }
 ]

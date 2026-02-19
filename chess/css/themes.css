@@ -1,0 +1,203 @@
+/**
+ * Chess Themes - Traditional Wood Aesthetic
+ * Three distinct themes
+ */
+
+/* ============================================
+   CLASSIC THEME - Warm Wood Brown
+   ============================================ */
+.theme-classic {
+    --bg-primary: #3d2b1f;
+    --bg-secondary: #4a3728;
+    --bg-tertiary: #5c4433;
+    --text-primary: #f5e6d3;
+    --text-secondary: #d4c4b0;
+    --text-muted: #a89880;
+
+    /* Board Colors - Traditional */
+    --square-light: #f0d9b5;
+    --square-dark: #b58863;
+
+    /* Board Frame */
+    --board-frame-color: #6b4423;
+    --board-border-radius: 8px;
+
+    /* Highlights */
+    --highlight-move: rgba(100, 200, 100, 0.4);
+    --highlight-selected: rgba(255, 255, 0, 0.4);
+    --highlight-last-move: rgba(155, 199, 0, 0.4);
+    --highlight-check: rgba(255, 0, 0, 0.5);
+
+    /* Piece Colors */
+    --piece-white: #fff;
+    --piece-white-stroke: #333;
+    --piece-black: #333;
+    --piece-black-stroke: #000;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #8b5a2b 0%, #6b4423 100%);
+    --btn-primary-hover: linear-gradient(180deg, #9b6a3b 0%, #8b5a2b 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #5c4433 0%, #4a3728 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #6c5443 0%, #5c4433 100%);
+    --btn-text: #f5e6d3;
+
+    --modal-bg: #4a3728;
+    --modal-border: #6b4423;
+
+    /* Scrollbar */
+    --scrollbar-track: #4a3728;
+    --scrollbar-thumb: #6b4423;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+}
+
+/* ============================================
+   DARK THEME - Deep Black
+   ============================================ */
+.theme-dark {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #141414;
+    --bg-tertiary: #1f1f1f;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --text-muted: #555555;
+
+    /* Board Colors - Wooden theme */
+    --square-light: #f0d9b5;
+    --square-dark: #b58863;
+
+    /* Board Frame */
+    --board-frame-color: #1a1a1a;
+    --board-border-radius: 4px;
+
+    /* Highlights - Neon */
+    --highlight-move: rgba(0, 255, 150, 0.35);
+    --highlight-selected: rgba(255, 215, 0, 0.35);
+    --highlight-last-move: rgba(0, 200, 255, 0.3);
+    --highlight-check: rgba(255, 50, 50, 0.6);
+
+    /* Piece Colors */
+    --piece-white: #e0e0e0;
+    --piece-white-stroke: #666;
+    --piece-black: #222;
+    --piece-black-stroke: #000;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #333333 0%, #222222 100%);
+    --btn-primary-hover: linear-gradient(180deg, #444444 0%, #333333 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #1f1f1f 0%, #141414 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #2f2f2f 0%, #1f1f1f 100%);
+    --btn-text: #ffffff;
+
+    --modal-bg: #141414;
+    --modal-border: #333333;
+
+    /* Scrollbar */
+    --scrollbar-track: #141414;
+    --scrollbar-thumb: #333333;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+}
+
+/* ============================================
+   LIGHT THEME - Cream/Beige
+   ============================================ */
+.theme-light {
+    --bg-primary: #f5f0e6;
+    --bg-secondary: #ebe5d8;
+    --bg-tertiary: #ddd6c6;
+    --text-primary: #2d2d2d;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+
+    /* Board Colors - Wooden theme */
+    --square-light: #f0d9b5;
+    --square-dark: #b58863;
+
+    /* Board Frame */
+    --board-frame-color: #a89070;
+    --board-border-radius: 8px;
+
+    /* Highlights */
+    --highlight-move: rgba(80, 160, 80, 0.4);
+    --highlight-selected: rgba(200, 160, 0, 0.4);
+    --highlight-last-move: rgba(180, 180, 80, 0.4);
+    --highlight-check: rgba(200, 50, 50, 0.5);
+
+    /* Piece Colors */
+    --piece-white: #fff;
+    --piece-white-stroke: #666;
+    --piece-black: #333;
+    --piece-black-stroke: #000;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #8b7355 0%, #6b5335 100%);
+    --btn-primary-hover: linear-gradient(180deg, #9b8365 0%, #8b7355 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #6b5335 0%, #5a4325 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #7b6345 0%, #6b5335 100%);
+    --btn-text: #f5f0e6;
+
+    --modal-bg: #ebe5d8;
+    --modal-border: #a89070;
+
+    /* Scrollbar */
+    --scrollbar-track: #ebe5d8;
+    --scrollbar-thumb: #a89070;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+}
+
+/* ============================================
+   BASE THEME VARIABLES (Default = Classic)
+   ============================================ */
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3d3d3d;
+    --text-primary: #f5f5f5;
+    --text-secondary: #b0b0b0;
+    --text-muted: #808080;
+
+    --square-light: #f0d9b5;
+    --square-dark: #b58863;
+    --wood-light: linear-gradient(135deg, rgba(240, 217, 181, 1) 0%, rgba(235, 210, 170, 1) 50%, rgba(240, 217, 181, 1) 100%);
+    --wood-dark: linear-gradient(135deg, rgba(181, 136, 99, 1) 0%, rgba(175, 130, 93, 1) 50%, rgba(181, 136, 99, 1) 100%);
+
+    --board-frame: linear-gradient(180deg, #5d4037 0%, #4e342e 50%, #3e2723 100%);
+    --board-frame-border: #2d1f1a;
+    --board-border-radius: 8px;
+
+    --highlight-move: rgba(100, 200, 100, 0.4);
+    --highlight-selected: rgba(255, 255, 0, 0.4);
+    --highlight-last-move: rgba(155, 199, 0, 0.4);
+    --highlight-check: rgba(255, 0, 0, 0.5);
+
+    --piece-white: #fff;
+    --piece-white-stroke: #333;
+    --piece-black: #333;
+    --piece-black-stroke: #000;
+
+    --btn-primary-bg: linear-gradient(180deg, #6d4c41 0%, #5d4037 100%);
+    --btn-primary-hover: linear-gradient(180deg, #7d5c51 0%, #6d4c41 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #4e342e 0%, #3e2723 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #5e443e 0%, #4e342e 100%);
+    --btn-text: #f5f5f5;
+
+    --modal-bg: #2d2d2d;
+    --modal-border: #4e342e;
+
+    --history-bg: rgba(62, 39, 35, 0.3);
+    --history-text: #f5f5f5;
+    --history-border: #5d4037;
+
+    --scrollbar-track: #2d2d2d;
+    --scrollbar-thumb: #5d4037;
+
+    /* Animation speeds */
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+}
