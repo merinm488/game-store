@@ -1,0 +1,33 @@
+{
+  "name": "Chess",
+  "short_name": "Chess",
+  "description": "Classic chess game with AI opponent",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#3d2b1f",
+  "theme_color": "#4a3728",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Play vs AI",
+      "short_name": "vs AI",
+      "description": "Start a new game against the AI",
+      "url": "./index.html?mode=ai"
+    }
+  ]
+}
