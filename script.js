@@ -42,7 +42,7 @@ const gamesData = [
         "title": "Word Puzzle",
         "description": "Create words from letters and test your vocabulary",
         "emoji": "📝",
-        "icon": null,
+        "icon": "./word-puzzle/icons/icon-192.png",
         "url": "./word-puzzle/"
     }
 ];
