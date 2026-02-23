@@ -28,6 +28,7 @@ A central hub and launcher for my browser-based games. This acts as a simple, st
 | 📦 Sokoban | Push boxes to their target locations |
 | ♟️ Chess | Classic chess with adaptive AI opponent |
 | 🧱 Tetris | Classic puzzle game - stack blocks and clear lines |
+| 📝 Word Puzzle | Create words from letters and test your vocabulary |
 
 ## 🚀 Live Demo
 

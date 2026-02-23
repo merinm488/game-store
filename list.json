@@ -22,5 +22,11 @@
     "description": "Classic chess with adaptive AI opponent",
     "emoji": "♚",
     "url": "./chess/"
+  },
+  {
+    "title": "Word Puzzle",
+    "description": "Create words from letters and test your vocabulary",
+    "emoji": "📝",
+    "url": "./word-puzzle/"
   }
 ]

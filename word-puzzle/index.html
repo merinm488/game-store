@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Word Puzzle - Create words from letters and test your vocabulary">
+    <meta name="theme-color" content="#6b4ce0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Word Puzzle">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <title>Word Puzzle</title>
+    <link rel="stylesheet" href="css/themes.css?v=1">
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Menu Screen -->
+        <div id="mainMenu" class="screen active">
+            <div class="menu-content">
+                <div class="menu-logo">
+                    <div class="logo-icon">
+                        <span class="logo-letter">W</span>
+                    </div>
+                    <h1 class="game-title">Test Your Vocabulary</h1>
+                </div>
+
+                <!-- Best Score Display -->
+                <div class="score-record">
+                    <div class="record-item">
+                        <span class="record-value" id="bestScoreMenu">0</span>
+                        <span class="record-label">Best Score</span>
+                    </div>
+                    <div class="record-item">
+                        <span class="record-value" id="bestLevelMenu">1</span>
+                        <span class="record-label">Best Level</span>
+                    </div>
+                </div>
+
+                <div class="menu-buttons">
+                    <button id="playBtn" class="btn btn-primary btn-large">
+                        <span class="btn-icon">&#9654;</span>
+                        PLAY
+                    </button>
+                    <button id="settingsBtn" class="btn btn-secondary">
+                        <span class="btn-icon">&#9881;</span>
+                        SETTINGS
+                    </button>
+                    <button id="howToPlayBtn" class="btn btn-secondary">
+                        <span class="btn-icon">?</span>
+                        HOW TO PLAY
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="game-header">
+                <div class="header-row">
+                    <div class="stat-display">
+                        <span class="stat-label">SCORE</span>
+                        <span class="stat-value" id="currentScore">0</span>
+                    </div>
+                    <div class="stat-display">
+                        <span class="stat-label">LEVEL</span>
+                        <span class="stat-value" id="currentLevel">1</span>
+                    </div>
+                    <div class="stat-display">
+                        <span class="stat-label">WORDS</span>
+                        <span class="stat-value"><span id="wordsFound">0</span>/10</span>
+                    </div>
+                    <button id="endGameBtn" class="btn-icon-only" aria-label="End Game">&#10006;</button>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <!-- Current Word Display -->
+                <div class="word-display-container">
+                    <div class="word-display" id="currentWordDisplay">
+                        <span class="placeholder-text">Select letters to form a word</span>
+                    </div>
+                </div>
+
+                <!-- Found Words List -->
+                <div class="found-words-container">
+                    <div class="found-words-title">Found Words</div>
+                    <div class="found-words-list" id="foundWordsList"></div>
+                </div>
+
+                <!-- Letter Tiles -->
+                <div class="letters-container">
+                    <div class="letter-tiles" id="letterTiles"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="game-actions">
+                    <button id="shuffleBtn" class="btn btn-secondary btn-small">
+                        <span class="btn-icon">&#8635;</span>
+                        Shuffle
+                    </button>
+                    <button id="clearBtn" class="btn btn-secondary btn-small">
+                        <span class="btn-icon">&#9003;</span>
+                        Clear
+                    </button>
+                    <button id="submitBtn" class="btn btn-primary btn-small">
+                        <span class="btn-icon">&#10003;</span>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal-overlay">
+            <div class="modal settings-modal">
+                <h2>Settings</h2>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label for="themeSelect">
+                            <span class="setting-label">Theme</span>
+                            <span class="setting-icon">&#127912;</span>
+                        </label>
+                        <select id="themeSelect" class="setting-select">
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="wooden">Light Wooden</option>
+                            <option value="soft-blue">Soft Blue</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="levelSelect">
+                            <span class="setting-label">Start Level</span>
+                            <span class="setting-icon">&#127919;</span>
+                        </label>
+                        <select id="levelSelect" class="setting-select">
+                            <option value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option value="3">Level 3</option>
+                            <option value="4">Level 4</option>
+                            <option value="5">Level 5</option>
+                            <option value="6">Level 6</option>
+                            <option value="7">Level 7</option>
+                            <option value="8">Level 8</option>
+                            <option value="9">Level 9</option>
+                            <option value="10">Level 10</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-toggle">
+                            <span class="setting-label">Sound</span>
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="closeSettings" class="btn btn-primary">Save & Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Play Modal -->
+        <div id="howToPlayModal" class="modal-overlay">
+            <div class="modal how-to-play-modal">
+                <h2>How to Play</h2>
+                <div class="instructions">
+                    <section>
+                        <h3>Objective</h3>
+                        <p>Create words by selecting the letters provided. Find 10 words to complete each level!</p>
+                    </section>
+                    <section>
+                        <h3>Rules</h3>
+                        <ul class="rules-list">
+                            <li>Each letter can only be used once per word</li>
+                            <li>Words must be at least 3 letters long</li>
+                            <li>Longer words earn more points</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Controls - Desktop</h3>
+                        <div class="controls-list">
+                            <div class="control-item">
+                                <span class="key">Click Letters</span>
+                                <span class="action">Select letters</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Type</span>
+                                <span class="action">Type letters directly</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Enter</span>
+                                <span class="action">Submit word</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Backspace</span>
+                                <span class="action">Delete last letter</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Escape</span>
+                                <span class="action">Clear word</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Controls - Mobile</h3>
+                        <div class="controls-list">
+                            <div class="control-item">
+                                <span class="key">Tap Letters</span>
+                                <span class="action">Select letters</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Tap Submit</span>
+                                <span class="action">Submit word</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Tap Clear</span>
+                                <span class="action">Clear selection</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Scoring</h3>
+                        <div class="scoring-list">
+                            <div class="score-item"><span>3 letters</span><span>30 pts</span></div>
+                            <div class="score-item"><span>4 letters</span><span>40 pts</span></div>
+                            <div class="score-item"><span>5 letters</span><span>50 pts</span></div>
+                            <div class="score-item"><span>6 letters</span><span>60 pts</span></div>
+                            <div class="score-item"><span>7 letters</span><span>70 pts</span></div>
+                        </div>
+                        <p class="score-note">Score = Word Length × 10 points</p>
+                    </section>
+                </div>
+                <button id="closeHowToPlay" class="btn btn-primary">Got it!</button>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div id="gameOverModal" class="modal-overlay">
+            <div class="modal game-over-modal">
+                <h2 id="gameOverTitle">Level Complete!</h2>
+                <div class="game-result">
+                    <div class="final-score">
+                        <span class="final-score-label">Score</span>
+                        <span class="final-score-value" id="finalScore">0</span>
+                    </div>
+                    <div class="final-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="finalLevel">1</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="finalWords">0</span>
+                            <span class="stat-label">Words Found</span>
+                        </div>
+                    </div>
+                    <div class="new-best" id="newBestRecord">NEW BEST!</div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+                    <button id="nextLevelBtn" class="btn btn-secondary">Next Level</button>
+                    <button id="menuBtn" class="btn btn-secondary">Quit to Menu</button>
+                </div>
+                <div class="all-words-section">
+                    <h3>All Possible Words</h3>
+                    <div class="all-words-list" id="allWordsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Toast -->
+        <div id="messageToast" class="message-toast"></div>
+    </div>
+
+    <script src="js/dictionary.js?v=1"></script>
+    <script src="js/game.js?v=1"></script>
+    <script src="js/ui.js?v=1"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('SW registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('SW registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

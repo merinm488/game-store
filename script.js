@@ -37,6 +37,13 @@ const gamesData = [
         "emoji": "🧱",
         "icon": "./tetris/icons/icon-192.png",
         "url": "./tetris/"
+    },
+    {
+        "title": "Word Puzzle",
+        "description": "Create words from letters and test your vocabulary",
+        "emoji": "📝",
+        "icon": null,
+        "url": "./word-puzzle/"
     }
 ];
 
