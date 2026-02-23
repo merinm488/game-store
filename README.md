@@ -26,6 +26,8 @@ A central hub and launcher for my browser-based games. This acts as a simple, st
 | 🐍 Snake Rush | A fast-paced snake game with classic gameplay |
 | 💣 Minesweeper | Classic puzzle game - find all the mines! |
 | 📦 Sokoban | Push boxes to their target locations |
+| ♟️ Chess | Classic chess with adaptive AI opponent |
+| 🧱 Tetris | Classic puzzle game - stack blocks and clear lines |
 
 ## 🚀 Live Demo
 

@@ -1,0 +1,223 @@
+/**
+ * Tetris Themes
+ * Four themes: Dark, Light, Soft Blue, Soft Green
+ * All themes have black game board with colored pieces
+ */
+
+/* ============================================
+   DARK THEME (Default)
+   ============================================ */
+.theme-dark {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-tertiary: #0f3460;
+    --text-primary: #eaeaea;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+
+    /* Board Colors */
+    --board-bg: #000000;
+    --board-grid: #1a1a1a;
+    --board-border: #333333;
+
+    /* Ghost Piece */
+    --ghost-opacity: 0.3;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #e94560 0%, #c73e54 100%);
+    --btn-primary-hover: linear-gradient(180deg, #ff5a75 0%, #e94560 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #0f3460 0%, #16213e 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #1a4a80 0%, #0f3460 100%);
+    --btn-text: #ffffff;
+
+    --modal-bg: #16213e;
+    --modal-border: #e94560;
+
+    /* Side Panels */
+    --panel-bg: #0f0f23;
+    --panel-border: #333355;
+
+    /* Scrollbar */
+    --scrollbar-track: #16213e;
+    --scrollbar-thumb: #0f3460;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+}
+
+/* ============================================
+   LIGHT THEME
+   ============================================ */
+.theme-light {
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #e8e8e8;
+    --bg-tertiary: #d0d0d0;
+    --text-primary: #2d2d2d;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+
+    /* Board Colors */
+    --board-bg: #000000;
+    --board-grid: #1a1a1a;
+    --board-border: #333333;
+
+    /* Ghost Piece */
+    --ghost-opacity: 0.3;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #ff6b6b 0%, #ee5a5a 100%);
+    --btn-primary-hover: linear-gradient(180deg, #ff7b7b 0%, #ff6b6b 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #d0d0d0 0%, #b8b8b8 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #e0e0e0 0%, #d0d0d0 100%);
+    --btn-text: #ffffff;
+
+    --modal-bg: #ffffff;
+    --modal-border: #ff6b6b;
+
+    /* Side Panels */
+    --panel-bg: #e0e0e0;
+    --panel-border: #cccccc;
+
+    /* Scrollbar */
+    --scrollbar-track: #e8e8e8;
+    --scrollbar-thumb: #d0d0d0;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+}
+
+/* ============================================
+   SOFT BLUE THEME
+   ============================================ */
+.theme-soft-blue {
+    --bg-primary: #e8f4f8;
+    --bg-secondary: #d0e8f0;
+    --bg-tertiary: #b8dce8;
+    --text-primary: #2c3e50;
+    --text-secondary: #5a7a8a;
+    --text-muted: #8aa8b8;
+
+    /* Board Colors */
+    --board-bg: #000000;
+    --board-grid: #1a1a1a;
+    --board-border: #333333;
+
+    /* Ghost Piece */
+    --ghost-opacity: 0.3;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
+    --btn-primary-hover: linear-gradient(180deg, #5dade2 0%, #3498db 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #b8dce8 0%, #a0d0e0 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #c8e8f0 0%, #b8dce8 100%);
+    --btn-text: #ffffff;
+
+    --modal-bg: #d0e8f0;
+    --modal-border: #3498db;
+
+    /* Side Panels */
+    --panel-bg: #c8e0e8;
+    --panel-border: #a8d0e0;
+
+    /* Scrollbar */
+    --scrollbar-track: #d0e8f0;
+    --scrollbar-thumb: #b8dce8;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+}
+
+/* ============================================
+   SOFT GREEN THEME
+   ============================================ */
+.theme-soft-green {
+    --bg-primary: #e8f5e9;
+    --bg-secondary: #c8e6c9;
+    --bg-tertiary: #a5d6a7;
+    --text-primary: #2e5a2e;
+    --text-secondary: #4a7a4a;
+    --text-muted: #6a9a6a;
+
+    /* Board Colors */
+    --board-bg: #000000;
+    --board-grid: #1a1a1a;
+    --board-border: #333333;
+
+    /* Ghost Piece */
+    --ghost-opacity: 0.3;
+
+    /* UI Elements */
+    --btn-primary-bg: linear-gradient(180deg, #4caf50 0%, #43a047 100%);
+    --btn-primary-hover: linear-gradient(180deg, #66bb6a 0%, #4caf50 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #a5d6a7 0%, #81c784 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #c8e6c9 0%, #a5d6a7 100%);
+    --btn-text: #ffffff;
+
+    --modal-bg: #c8e6c9;
+    --modal-border: #4caf50;
+
+    /* Side Panels */
+    --panel-bg: #d0e8d0;
+    --panel-border: #b0d8b0;
+
+    /* Scrollbar */
+    --scrollbar-track: #c8e6c9;
+    --scrollbar-thumb: #a5d6a7;
+
+    /* Animation */
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+}
+
+/* ============================================
+   BASE THEME VARIABLES (Default = Dark)
+   ============================================ */
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-tertiary: #0f3460;
+    --text-primary: #eaeaea;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+
+    --board-bg: #000000;
+    --board-grid: #1a1a1a;
+    --board-border: #333333;
+
+    --ghost-opacity: 0.3;
+
+    --btn-primary-bg: linear-gradient(180deg, #e94560 0%, #c73e54 100%);
+    --btn-primary-hover: linear-gradient(180deg, #ff5a75 0%, #e94560 100%);
+    --btn-secondary-bg: linear-gradient(180deg, #0f3460 0%, #16213e 100%);
+    --btn-secondary-hover: linear-gradient(180deg, #1a4a80 0%, #0f3460 100%);
+    --btn-text: #ffffff;
+
+    --modal-bg: #16213e;
+    --modal-border: #e94560;
+
+    --panel-bg: #0f0f23;
+    --panel-border: #333355;
+
+    --scrollbar-track: #16213e;
+    --scrollbar-thumb: #0f3460;
+
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+}
+
+/* ============================================
+   TETRIS PIECE COLORS (Standard)
+   Used across all themes
+   ============================================ */
+:root {
+    --piece-i: #00f0f0; /* Cyan */
+    --piece-o: #f0f000; /* Yellow */
+    --piece-t: #a000f0; /* Purple */
+    --piece-s: #00f000; /* Green */
+    --piece-z: #f00000; /* Red */
+    --piece-j: #0000f0; /* Blue */
+    --piece-l: #f0a000; /* Orange */
+}

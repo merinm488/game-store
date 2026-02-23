@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Tetris - Classic puzzle game, stack blocks and clear lines">
+    <meta name="theme-color" content="#e94560">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tetris">
+    <title>Tetris</title>
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/themes.css?v=1">
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen active">
+            <div class="menu-content">
+                <div class="menu-logo">
+                    <div class="tetris-blocks-logo">
+                        <div class="block-row blocks-row-3">
+                            <div class="t-block block-j"></div>
+                            <div class="t-block block-l"></div>
+                        </div>
+                        <div class="block-row blocks-row-4">
+                            <div class="t-block block-s"></div>
+                            <div class="t-block block-z"></div>
+                        </div>
+                        <div class="block-row blocks-row-5">
+                            <div class="t-block block-i"></div>
+                            <div class="t-block block-o"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Score Display -->
+                <div class="score-record">
+                    <div class="record-item">
+                        <span class="record-value" id="bestScoreMenu">0</span>
+                        <span class="record-label">Best Score</span>
+                    </div>
+                </div>
+
+                <div class="menu-buttons">
+                    <button id="playBtn" class="btn btn-primary btn-large">
+                        <span class="btn-icon">▶</span>
+                        PLAY
+                    </button>
+                    <button id="settingsBtn" class="btn btn-secondary">
+                        <span class="btn-icon">⚙</span>
+                        SETTINGS
+                    </button>
+                    <button id="howToPlayBtn" class="btn btn-secondary">
+                        <span class="btn-icon">?</span>
+                        HOW TO PLAY
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="game-header">
+                <div class="header-row">
+                    <div class="score-display">
+                        <span class="score-label">SCORE</span>
+                        <span class="score-value" id="currentScore">0</span>
+                    </div>
+                    <div class="level-display">
+                        <span class="level-label">LEVEL</span>
+                        <span class="level-value" id="currentLevel">1</span>
+                    </div>
+                    <div class="lines-display">
+                        <span class="lines-label">LINES</span>
+                        <span class="lines-value" id="currentLines">0</span>
+                    </div>
+                    <button id="pauseBtn" class="btn-icon-only" aria-label="Pause">⏸</button>
+                </div>
+            </div>
+
+            <div class="game-layout">
+                <!-- Hold Queue -->
+                <div class="side-panel hold-panel">
+                    <div class="panel-title">HOLD</div>
+                    <div class="hold-queue" id="holdQueue">
+                        <canvas id="holdCanvas" width="100" height="100"></canvas>
+                    </div>
+                </div>
+
+                <!-- Game Board -->
+                <div class="board-container">
+                    <canvas id="gameBoard" width="300" height="600"></canvas>
+                </div>
+
+                <!-- Next Queue & Score -->
+                <div class="side-panel next-panel">
+                    <div class="panel-title">NEXT</div>
+                    <div class="next-queue" id="nextQueue">
+                        <canvas id="nextCanvas" width="100" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pauseMenu" class="modal-overlay">
+            <div class="modal">
+                <h2>Paused</h2>
+                <div class="modal-buttons">
+                    <button id="resumeBtn" class="btn btn-primary">Resume</button>
+                    <button id="restartBtn" class="btn btn-secondary">Restart</button>
+                    <button id="quitBtn" class="btn btn-secondary">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="modal-overlay">
+            <div class="modal">
+                <h2>Game Over</h2>
+                <div class="game-result">
+                    <div class="final-score">
+                        <span class="final-score-label">Score</span>
+                        <span class="final-score-value" id="finalScore">0</span>
+                    </div>
+                    <div class="final-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="finalLevel">1</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="finalLines">0</span>
+                            <span class="stat-label">Lines</span>
+                        </div>
+                    </div>
+                    <div class="new-best" id="newBestRecord">NEW BEST!</div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+                    <button id="menuBtn" class="btn btn-secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Play Modal -->
+        <div id="howToPlayModal" class="modal-overlay">
+            <div class="modal how-to-play-modal">
+                <h2>How to Play</h2>
+                <div class="instructions">
+                    <section>
+                        <h3>Objective</h3>
+                        <p>Stack the falling blocks (Tetriminos) to create complete horizontal lines. When a line is complete, it disappears and you earn points!</p>
+                    </section>
+                    <section>
+                        <h3>Controls - Desktop</h3>
+                        <div class="controls-list">
+                            <div class="control-item">
+                                <span class="key">← →</span>
+                                <span class="action">Move left/right</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">↑</span>
+                                <span class="action">Rotate piece</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">↓</span>
+                                <span class="action">Soft drop</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Enter</span>
+                                <span class="action">Hard drop</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Space</span>
+                                <span class="action">Pause/Resume</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Click Hold</span>
+                                <span class="action">Hold piece</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Controls - Mobile</h3>
+                        <div class="controls-list">
+                            <div class="control-item">
+                                <span class="key">Swipe ← →</span>
+                                <span class="action">Move left/right</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Tap</span>
+                                <span class="action">Rotate piece</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Swipe ↓</span>
+                                <span class="action">Hard drop</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">Tap Hold</span>
+                                <span class="action">Hold piece</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Scoring</h3>
+                        <div class="scoring-list">
+                            <div class="score-item"><span>Single line</span><span>100 pts</span></div>
+                            <div class="score-item"><span>Double</span><span>300 pts</span></div>
+                            <div class="score-item"><span>Triple</span><span>500 pts</span></div>
+                            <div class="score-item"><span>Tetris (4 lines)</span><span>800 pts</span></div>
+                        </div>
+                        <p class="score-note">All scores are multiplied by current level!</p>
+                    </section>
+                    <section>
+                        <h3>Tips</h3>
+                        <ul class="tips-list">
+                            <li>Use the Ghost Piece to see where your piece will land</li>
+                            <li>Hold pieces for later use - you can swap once per drop</li>
+                            <li>Plan ahead using the Next queue</li>
+                            <li>Try to clear 4 lines at once for maximum points!</li>
+                        </ul>
+                    </section>
+                </div>
+                <button id="closeHowToPlay" class="btn btn-primary">Got it!</button>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal-overlay">
+            <div class="modal settings-modal">
+                <h2>Settings</h2>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label for="themeSelect">
+                            <span class="setting-label">Theme</span>
+                            <span class="setting-icon">🎨</span>
+                        </label>
+                        <select id="themeSelect" class="setting-select">
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="soft-blue">Soft Blue</option>
+                            <option value="soft-green">Soft Green</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="difficultySelect">
+                            <span class="setting-label">Difficulty</span>
+                            <span class="setting-icon">🎯</span>
+                        </label>
+                        <select id="difficultySelect" class="setting-select">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-toggle">
+                            <span class="setting-label">Sound</span>
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <button id="closeSettings" class="btn btn-primary">Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/audio.js?v=1"></script>
+    <script src="js/pieces.js?v=1"></script>
+    <script src="js/game.js?v=1"></script>
+    <script src="js/renderer.js?v=1"></script>
+    <script src="js/ui.js?v=1"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

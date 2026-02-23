@@ -1,34 +1,55 @@
 // Global variable to store all games
 let allGames = [];
 
-// Fetch and render games from list.json
-async function loadGames() {
-    const gamesGrid = document.getElementById('games-grid');
-
-    try {
-        const response = await fetch('list.json');
-
-        if (!response.ok) {
-            throw new Error('Failed to load games list');
-        }
-
-        allGames = await response.json();
-
-        // Clear loading message
-        gamesGrid.innerHTML = '';
-
-        // Render each game
-        renderGames(allGames);
-
-    } catch (error) {
-        console.error('Error loading games:', error);
-        gamesGrid.innerHTML = `
-            <div class="error">
-                <h2>Oops! Something went wrong</h2>
-                <p>Unable to load games. Please refresh the page or try again later.</p>
-            </div>
-        `;
+// Games data (embedded to avoid CORS issues when opening file directly)
+const gamesData = [
+    {
+        "title": "Snake Rush",
+        "description": "A fast-paced snake game with classic gameplay",
+        "emoji": "🐍",
+        "icon": "./snake-rush/icons/icon-192.png",
+        "url": "./snake-rush/"
+    },
+    {
+        "title": "Minesweeper",
+        "description": "Classic puzzle game - find all the mines without triggering them",
+        "emoji": "💣",
+        "icon": null,
+        "url": "./minesweeper/"
+    },
+    {
+        "title": "Sokoban",
+        "description": "Push boxes to their target locations in this puzzle game",
+        "emoji": "📦",
+        "icon": "./sokoban/icons/icon-192x192.png",
+        "url": "./sokoban/"
+    },
+    {
+        "title": "Chess",
+        "description": "Classic chess with adaptive AI opponent",
+        "emoji": "♟️",
+        "icon": "./chess/icons/icon-192.png",
+        "url": "./chess/"
+    },
+    {
+        "title": "Tetris",
+        "description": "Classic puzzle game - stack blocks and clear lines",
+        "emoji": "🧱",
+        "icon": "./tetris/icons/icon-192.png",
+        "url": "./tetris/"
     }
+];
+
+// Load and render games
+function loadGames() {
+    const gamesGrid = document.getElementById('games-grid');
+    allGames = gamesData;
+
+    // Clear loading message
+    gamesGrid.innerHTML = '';
+
+    // Render each game
+    renderGames(allGames);
 }
 
 // Render games to the grid
@@ -69,46 +90,40 @@ function searchGames(query) {
     renderGames(filteredGames);
 }
 
-// Create a game card element
+// Create a game card element - Mobile App Icon Style
 function createGameCard(game) {
-    const card = document.createElement('div');
+    // The entire card is a clickable link
+    const card = document.createElement('a');
     card.className = 'game-card';
+    card.href = game.url;
 
     // Game icon
     const icon = document.createElement('div');
     icon.className = 'game-icon';
-    icon.textContent = game.emoji || '🎮';
 
-    // Game content wrapper
-    const content = document.createElement('div');
-    content.className = 'game-content';
+    if (game.icon) {
+        // Use actual PWA icon image
+        const img = document.createElement('img');
+        img.src = game.icon;
+        img.alt = game.title;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = 'inherit';
+        icon.appendChild(img);
+    } else {
+        // Fallback to emoji
+        icon.textContent = game.emoji || '🎮';
+    }
 
     // Game title
-    const title = document.createElement('h2');
+    const title = document.createElement('span');
     title.className = 'game-title';
     title.textContent = game.title;
 
-    // Game description
-    const description = document.createElement('p');
-    description.className = 'game-description';
-    description.textContent = game.description;
-
-    // Play button
-    const playButton = document.createElement('a');
-    playButton.className = 'play-button';
-    playButton.href = game.url;
-    playButton.textContent = 'Play Now';
-    playButton.target = '_blank';
-    playButton.rel = 'noopener noreferrer';
-
-    // Assemble content
-    content.appendChild(title);
-    content.appendChild(description);
-
-    // Assemble card: icon, content, button
+    // Assemble card: icon + title
     card.appendChild(icon);
-    card.appendChild(content);
-    card.appendChild(playButton);
+    card.appendChild(title);
 
     return card;
 }
