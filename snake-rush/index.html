@@ -43,10 +43,19 @@
                     <span class="score-label">HIGH SCORE</span>
                     <span id="highScoreMenu" class="score-value-large">0</span>
                 </div>
+                <div class="player-info-badge">
+                    <span class="player-label">Playing as:</span>
+                    <span id="currentPlayerDisplay" class="player-name-display">Guest</span>
+                    <button id="changePlayerBtn" class="btn-change-player">Change</button>
+                </div>
                 <div class="menu-buttons-full">
                     <button id="playBtn" class="btn btn-primary btn-large">
                         <span class="btn-icon">▶</span>
                         PLAY
+                    </button>
+                    <button id="leaderboardBtn" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">🏆</span>
+                        SCOREBOARD
                     </button>
                     <button id="howToPlayBtn" class="btn btn-secondary btn-large">
                         <span class="btn-icon">?</span>
@@ -292,6 +301,35 @@
                 <button id="closeSettings" class="btn btn-primary">Save & Close</button>
             </div>
         </div>
+
+        <!-- Player Name Prompt Modal -->
+        <div id="playerNameModal" class="modal-overlay">
+            <div class="modal">
+                <h2>🎮 Welcome!</h2>
+                <div class="player-name-content">
+                    <p>Enter your name to track your scores:</p>
+                    <input type="text" id="playerNameInput" class="player-name-input" placeholder="Enter your name..." maxlength="15">
+                    <div class="modal-buttons player-name-buttons">
+                        <button id="savePlayerName" class="btn btn-primary">Play</button>
+                        <button id="playAsGuest" class="btn btn-secondary">Play as Guest</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scoreboard Modal -->
+        <div id="leaderboardModal" class="modal-overlay">
+            <div class="modal leaderboard-modal">
+                <h2>🏆 Scoreboard</h2>
+                <div class="leaderboard-content">
+                    <div id="leaderboardList" class="leaderboard-list">
+                        <!-- Leaderboard entries will be populated by JS -->
+                        <div class="leaderboard-loading">Loading...</div>
+                    </div>
+                </div>
+                <button id="closeLeaderboard" class="btn btn-primary">Close</button>
+            </div>
+        </div>
     </div>
 
     <script src="js/audio.js?v=15"></script>
@@ -299,5 +337,6 @@
     <script src="js/renderer.js?v=30"></script>
     <script src="js/game.js?v=42"></script>
     <script src="js/ui.js?v=32"></script>
+    <script type="module" src="js/leaderboard.js?v=1"></script>
 </body>
 </html>

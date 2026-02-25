@@ -110,9 +110,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 1rem;
     gap: 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Logo Section */
@@ -681,6 +683,40 @@ body.theme-dark .setting-toggle input:checked + .toggle-slider::before {
 @media (max-width: 480px) {
     .menu-content {
         padding: 1rem;
+    }
+
+    .menu-content-full {
+        gap: 1rem;
+        justify-content: flex-start;
+        padding-top: 1.5rem;
+    }
+
+    .menu-logo {
+        display: none;
+    }
+
+    .snake-emoji-large {
+        font-size: 3rem;
+    }
+
+    .menu-title {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .high-score-badge,
+    .player-info-badge {
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .menu-buttons-full {
+        gap: 0.6rem;
+    }
+
+    .btn-large {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
     }
 
     .game-header {
@@ -1480,4 +1516,168 @@ body {
 
 #gameCanvas {
     touch-action: pan-x pan-y;
+}
+
+/* ============================================================
+   LEADERBOARD STYLES
+   ============================================================ */
+
+/* Player Name Modal */
+.player-name-content {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.player-name-content p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.player-name-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--border-radius);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: border-color 0.2s ease;
+}
+
+.player-name-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.player-name-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Leaderboard Modal */
+.leaderboard-modal {
+    max-width: 400px;
+}
+
+.leaderboard-content {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 1rem 0;
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.leaderboard-entry {
+    display: grid;
+    grid-template-columns: 50px 1fr 80px 40px;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.leaderboard-entry:hover {
+    transform: translateX(5px);
+    border-color: var(--accent);
+}
+
+.leaderboard-entry.current-player {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.leaderboard-rank {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.leaderboard-name {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.leaderboard-score {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: right;
+    color: var(--accent);
+}
+
+.leaderboard-entry.current-player .leaderboard-score {
+    color: white;
+}
+
+.leaderboard-mode {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.leaderboard-empty {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+.leaderboard-empty p:first-child {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.leaderboard-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+/* Player Info Badge */
+.player-info-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--bg-secondary);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.player-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.player-name-display {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.btn-change-player {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-change-player:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
 }

@@ -81,6 +81,7 @@ const UISystem = (function() {
 
     // Current game level
     let currentGameLevel = 1;
+    let currentGameMode = 'endless'; // Track the mode of the current game for leaderboard
     let selectedLevel = 1;
     let accumulatedScore = 0; // Tracks accumulated score across levels in levels mode
 
@@ -224,7 +225,16 @@ const UISystem = (function() {
      */
     function setupEventListeners() {
         // Main menu buttons
-        buttons.play.addEventListener('click', () => startGame(1, selectedMode));
+        buttons.play.addEventListener('click', () => {
+            // Check if player name is set, show prompt if not
+            if (window.leaderboard && !window.leaderboard.getCurrentPlayerName()) {
+                window.leaderboard.showPlayerNamePrompt(() => {
+                    startGame(1, selectedMode);
+                });
+            } else {
+                startGame(1, selectedMode);
+            }
+        });
         buttons.howToPlay.addEventListener('click', () => showModal('howToPlay'));
         buttons.settings.addEventListener('click', () => showModal('settings'));
         buttons.levels.addEventListener('click', () => {
@@ -460,6 +470,9 @@ const UISystem = (function() {
             mode = selectedMode;
         }
 
+        // Track current game mode for leaderboard
+        currentGameMode = mode;
+
         // Reset accumulated score when starting fresh (not from next level)
         if (resetScore) {
             accumulatedScore = 0;
@@ -524,6 +537,11 @@ const UISystem = (function() {
                 // Reset accumulated score when game over (not level complete)
                 if (!levelCompleted) {
                     accumulatedScore = 0;
+                }
+
+                // Submit score to leaderboard
+                if (window.leaderboard) {
+                    window.leaderboard.submitScore(finalScore, currentGameMode);
                 }
 
                 showModal('gameOver');

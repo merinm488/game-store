@@ -155,8 +155,14 @@ const UISystem = (function() {
      * Update menu score display
      */
     function updateMenuScores() {
-        const record = getWinLossRecord();
-        Renderer.updateMenuScores(record);
+        // If leaderboard is available, use TextDB data
+        if (window.leaderboard && window.leaderboard.getCurrentPlayerName()) {
+            window.leaderboard.updateMenuWins();
+        } else {
+            // Fallback to localStorage for guests
+            const record = getWinLossRecord();
+            Renderer.updateMenuScores(record);
+        }
     }
 
     /**
@@ -284,17 +290,6 @@ const UISystem = (function() {
      * Handle keyboard shortcuts
      */
     function handleKeydown(e) {
-        // Debug mode: Press Shift+D to simulate win screen
-        if ((e.key === 'd' || e.key === 'D') && e.shiftKey) {
-            if (screens.gameScreen?.classList.contains('active') &&
-                document.activeElement.tagName !== 'INPUT' &&
-                document.activeElement.tagName !== 'TEXTAREA') {
-                e.preventDefault();
-                showDebugWinScreen();
-                return;
-            }
-        }
-
         // Space bar to pause/resume
         if (e.key === ' ' || e.code === 'Space') {
             // Only handle space when game screen is active and no text input is focused
@@ -319,20 +314,6 @@ const UISystem = (function() {
                 togglePause();
             }
         }
-    }
-
-    /**
-     * Debug: Show win screen
-     */
-    function showDebugWinScreen() {
-        const winner = Math.random() > 0.5 ? 'white' : 'black';
-        let title = 'Checkmate!';
-        let resultText = `${winner === 'white' ? 'White' : 'Black'} wins!`;
-
-        AudioSystem.playCheckmate();
-        Renderer.showGameResult(title, resultText);
-        Renderer.updateGameOverStats(24, 8);
-        showModal('gameOver');
     }
 
     /**
@@ -375,6 +356,27 @@ const UISystem = (function() {
      * Start a new game
      */
     function startGame() {
+        // Check if leaderboard is ready, if not wait a bit and retry
+        if (!window.leaderboard) {
+            console.log('Leaderboard not ready yet, waiting...');
+            setTimeout(() => startGame(), 100);
+            return;
+        }
+
+        // Check if player name is set, show prompt if not
+        if (!window.leaderboard.getCurrentPlayerName()) {
+            window.leaderboard.showPlayerNamePrompt(() => {
+                startGameInternal();
+            });
+        } else {
+            startGameInternal();
+        }
+    }
+
+    /**
+     * Start a new game (internal)
+     */
+    function startGameInternal() {
         AudioSystem.playStart();
         AudioSystem.playClick();
 
@@ -550,6 +552,10 @@ const UISystem = (function() {
             } else {
                 recordResult = 'loss';
             }
+            // Submit result to leaderboard
+            if (window.leaderboard) {
+                window.leaderboard.updateRecord(recordResult);
+            }
         } else {
             recordResult = 'draw'; // For human vs human, don't track
         }
@@ -569,6 +575,11 @@ const UISystem = (function() {
         const state = Game.getState();
         updateRecord('draw');
 
+        // Submit draw to leaderboard (AI games only)
+        if (gameState.opponent === 'ai' && window.leaderboard) {
+            window.leaderboard.updateRecord('draw');
+        }
+
         Renderer.showGameResult('Stalemate', 'The game is a draw.');
         Renderer.updateGameOverStats(state.moveHistory.length, gameState.captureCount);
         showModal('gameOver');
@@ -582,6 +593,11 @@ const UISystem = (function() {
 
         const state = Game.getState();
         updateRecord('draw');
+
+        // Submit draw to leaderboard (AI games only)
+        if (gameState.opponent === 'ai' && window.leaderboard) {
+            window.leaderboard.updateRecord('draw');
+        }
 
         let message = 'The game is a draw.';
         if (reason === 'fifty-move') {

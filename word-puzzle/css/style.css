@@ -1025,3 +1025,194 @@ body {
         font-size: 1.3rem;
     }
 }
+
+/* ============================================
+   PLAYER INFO BADGE
+   ============================================ */
+.player-info-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg-secondary);
+    border-radius: 30px;
+    font-size: 0.9rem;
+}
+
+.player-label {
+    color: var(--text-secondary);
+}
+
+.player-name-display {
+    font-weight: 600;
+    color: var(--accent-color);
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn-change-player {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-transform: uppercase;
+}
+
+.btn-change-player:hover {
+    background: var(--btn-primary-hover);
+    transform: scale(1.05);
+}
+
+/* ============================================
+   PLAYER NAME MODAL
+   ============================================ */
+.player-name-content {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.player-name-content p {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.player-name-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--bg-tertiary);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.player-name-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.player-name-input::placeholder {
+    color: var(--text-muted);
+}
+
+.player-name-buttons {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.player-name-buttons .btn {
+    flex: 1;
+}
+
+/* ============================================
+   LEADERBOARD / SCOREBOARD
+   ============================================ */
+.leaderboard-modal {
+    max-width: 400px;
+}
+
+.leaderboard-content {
+    margin: 15px 0;
+}
+
+.leaderboard-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.leaderboard-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.leaderboard-empty p:first-child {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.leaderboard-entry {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all var(--transition-fast);
+}
+
+.leaderboard-entry:hover {
+    background: var(--bg-tertiary);
+}
+
+.leaderboard-entry.current-player {
+    background: var(--accent-color);
+    background: linear-gradient(135deg, var(--accent-color), var(--btn-primary-hover));
+}
+
+.leaderboard-entry.current-player * {
+    color: white;
+}
+
+.leaderboard-rank {
+    font-size: 1.3rem;
+    margin-right: 12px;
+    min-width: 35px;
+}
+
+.leaderboard-name {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.leaderboard-score {
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.leaderboard-entry.current-player .leaderboard-score {
+    color: white;
+}
+
+.leaderboard-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+}
+
+/* Mobile adjustments for scoreboard */
+@media (max-width: 480px) {
+    .player-info-badge {
+        flex-wrap: wrap;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    .player-name-buttons {
+        flex-direction: column;
+    }
+
+    .leaderboard-modal {
+        margin: 10px;
+    }
+
+    .leaderboard-list {
+        max-height: 280px;
+    }
+
+    .leaderboard-entry {
+        padding: 10px 12px;
+    }
+}

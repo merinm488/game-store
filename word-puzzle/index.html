@@ -43,10 +43,20 @@
                     </div>
                 </div>
 
+                <div class="player-info-badge">
+                    <span class="player-label">Playing as:</span>
+                    <span id="currentPlayerDisplay" class="player-name-display">Guest</span>
+                    <button id="change-player-btn" class="btn-change-player">Change</button>
+                </div>
+
                 <div class="menu-buttons">
                     <button id="playBtn" class="btn btn-primary btn-large">
                         <span class="btn-icon">&#9654;</span>
                         PLAY
+                    </button>
+                    <button id="leaderboard-btn" class="btn btn-secondary">
+                        <span class="btn-icon">&#127942;</span>
+                        SCOREBOARD
                     </button>
                     <button id="settingsBtn" class="btn btn-secondary">
                         <span class="btn-icon">&#9881;</span>
@@ -276,11 +286,40 @@
 
         <!-- Message Toast -->
         <div id="messageToast" class="message-toast"></div>
+
+        <!-- Player Name Prompt Modal -->
+        <div id="player-name-modal" class="modal-overlay">
+            <div class="modal">
+                <h2>Welcome!</h2>
+                <div class="player-name-content">
+                    <p>Enter your name to track your scores:</p>
+                    <input type="text" id="player-name-input" class="player-name-input" placeholder="Enter your name..." maxlength="15">
+                </div>
+                <div class="modal-buttons player-name-buttons">
+                    <button id="save-player-name" class="btn btn-primary">Play</button>
+                    <button id="play-as-guest" class="btn btn-secondary">Play as Guest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scoreboard Modal -->
+        <div id="leaderboard-modal" class="modal-overlay">
+            <div class="modal leaderboard-modal">
+                <h2>Scoreboard</h2>
+                <div class="leaderboard-content">
+                    <div id="leaderboard-list" class="leaderboard-list">
+                        <div class="leaderboard-loading">Loading...</div>
+                    </div>
+                </div>
+                <button id="close-leaderboard" class="btn btn-primary">Close</button>
+            </div>
+        </div>
     </div>
 
     <script src="js/dictionary.js?v=1"></script>
     <script src="js/game.js?v=1"></script>
     <script src="js/ui.js?v=1"></script>
+    <script type="module" src="js/leaderboard.js?v=1"></script>
 
     <!-- Service Worker Registration -->
     <script>

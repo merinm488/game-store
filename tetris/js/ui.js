@@ -185,6 +185,20 @@ const UI = (function() {
      * Start game
      */
     function startGame() {
+        // Check if leaderboard is ready and prompt for player name if needed
+        if (window.leaderboard && !window.leaderboard.getCurrentPlayerName()) {
+            window.leaderboard.showPlayerNamePrompt(() => {
+                proceedWithGameStart();
+            });
+            return;
+        }
+        proceedWithGameStart();
+    }
+
+    /**
+     * Actually start the game (after player name check)
+     */
+    function proceedWithGameStart() {
         Audio.playStart();
         hideAllModals();
         showScreen('gameScreen');
@@ -240,16 +254,29 @@ const UI = (function() {
     /**
      * Show game over screen
      */
-    function showGameOver(score, level, lines) {
+    async function showGameOver(score, level, lines) {
         stopGameLoop();
 
         displays.finalScore.textContent = score.toLocaleString();
         displays.finalLevel.textContent = level;
         displays.finalLines.textContent = lines;
 
-        // Check for new best score
+        // Submit score to leaderboard
+        let isNewBestFromLeaderboard = false;
+        if (window.leaderboard && score > 0) {
+            try {
+                await window.leaderboard.submitScore(score, level, lines);
+                // Check if this is a new best from leaderboard
+                const overallBest = window.leaderboard.getOverallBestScore();
+                isNewBestFromLeaderboard = (overallBest === score);
+            } catch (error) {
+                console.error('Failed to submit score to leaderboard:', error);
+            }
+        }
+
+        // Check for new best score (local or leaderboard)
         const bestScore = Game.getBestScore();
-        if (score >= bestScore && score > 0) {
+        if ((score >= bestScore && score > 0) || isNewBestFromLeaderboard) {
             displays.newBest.classList.add('show');
         } else {
             displays.newBest.classList.remove('show');
@@ -460,8 +487,15 @@ const UI = (function() {
      * Update best score display
      */
     function updateBestScoreDisplay() {
+        // Leaderboard module handles updating from TextDB
+        if (window.leaderboard && window.leaderboard.updateMenuBestScore) {
+            window.leaderboard.updateMenuBestScore();
+        }
+        // Also update local best score as fallback
         const bestScore = Game.getBestScore();
-        displays.bestScore.textContent = bestScore.toLocaleString();
+        if (displays.bestScore && !window.leaderboard?.getOverallBestScore()) {
+            displays.bestScore.textContent = bestScore.toLocaleString();
+        }
     }
 
     /**

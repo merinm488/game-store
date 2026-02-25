@@ -18,6 +18,7 @@ A central hub and launcher for my browser-based games. This acts as a simple, st
   - 🌊 Ocean (Cool blues)
 - 📱 **Fully Responsive** - Works perfectly on mobile, tablet, and desktop
 - ⚡ **Lightweight** - Pure HTML/CSS/JS, no frameworks
+- 🏆 **Cloud Scoreboard** - All games sync scores to the cloud via TextDB
 
 ## 🕹️ Games Included
 
@@ -34,11 +35,36 @@ A central hub and launcher for my browser-based games. This acts as a simple, st
 
 Visit the game store: [https://merinm488.github.io/game-store/](https://merinm488.github.io/game-store/)
 
+## ☁️ Cloud Scoreboard with TextDB
+
+All games feature a **cloud-synced scoreboard** powered by [TextDB](https://textdb.dev) - a free JSON storage API. This means:
+
+- 🌐 **Cross-Device Sync** - Your scores follow you across devices
+- 👤 **Player Profiles** - Set your name to track your personal best
+- 🏅 **Global Leaderboard** - Compete with other players worldwide
+- 💾 **Persistent Storage** - Scores are saved in the cloud, not just locally
+
+### How It Works
+
+Each game has its own leaderboard stored on TextDB:
+
+| Game | TextDB ID |
+|------|-----------|
+| Snake Rush | `snake-rush-leaderboard` |
+| Minesweeper | `minesweeper-leaderboard` |
+| Sokoban | `sokoban-leaderboard` |
+| Chess | `chess-leaderboard` |
+| Tetris | `tetris-leaderboard` |
+| Word Puzzle | `word-puzzle-leaderboard` |
+
+The shared TextDB library (`lib/textdbV1.js`) handles all API communication for loading and saving scores.
+
 ## 🛠️ Tech Stack
 
 - **HTML5** - Structure
 - **CSS3** - Styling with CSS variables for theming
 - **JavaScript (ES6+)** - Dynamic game loading and interactions
+- **TextDB** - Cloud JSON storage for scoreboards
 - **GitHub Pages** - Hosting
 
 ## 📁 Project Structure
@@ -49,6 +75,14 @@ game-store/
 ├── list.json        # Game metadata (titles, descriptions, URLs)
 ├── styles.css       # Styling with theme support
 ├── script.js        # Dynamic game loading & interactions
+├── lib/
+│   └── textdbV1.js  # Shared TextDB library for cloud scoreboards
+├── snake-rush/      # Snake game files
+├── minesweeper/     # Minesweeper game files
+├── sokoban/         # Sokoban game files
+├── chess/           # Chess game files
+├── tetris/          # Tetris game files
+├── word-puzzle/     # Word Puzzle game files
 └── README.md        # This file
 ```
 

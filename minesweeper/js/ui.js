@@ -54,11 +54,14 @@ const UI = {
     setupEventListeners() {
         // Main menu buttons
         document.getElementById('play-btn').addEventListener('click', () => {
-            const settings = Storage.getSettings();
-            Game.initialize(settings.difficulty);
-            this.showScreen('game-screen');
-            // Start tutorial if this is the first time
-            Tutorial.init();
+            // Check if player name is set, show prompt if not
+            if (window.leaderboard && !window.leaderboard.getCurrentPlayerName()) {
+                window.leaderboard.showPlayerNamePrompt(() => {
+                    this.startGame();
+                });
+            } else {
+                this.startGame();
+            }
         });
 
         // Guided play button on main menu
@@ -177,6 +180,17 @@ const UI = {
             e.stopPropagation();
             return false;
         });
+    },
+
+    /**
+     * Start a new game
+     */
+    startGame() {
+        const settings = Storage.getSettings();
+        Game.initialize(settings.difficulty);
+        this.showScreen('game-screen');
+        // Start tutorial if this is the first time
+        Tutorial.init();
     },
 
     /**
@@ -519,6 +533,11 @@ const UI = {
                 newRecord.classList.remove('hidden');
             } else {
                 newRecord.classList.add('hidden');
+            }
+
+            // Submit time to leaderboard
+            if (window.leaderboard) {
+                window.leaderboard.submitTime(time, Game.state.difficulty);
             }
         } else {
             title.textContent = 'Game Over';

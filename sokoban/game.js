@@ -246,6 +246,24 @@ class SokobanGame {
     }
 
     startGame() {
+        // Check if leaderboard is ready, if not wait a bit and retry
+        if (!window.leaderboard) {
+            console.log('Leaderboard not ready yet, waiting...');
+            setTimeout(() => this.startGame(), 100);
+            return;
+        }
+
+        // Check if player name is set, show prompt if not
+        if (!window.leaderboard.getCurrentPlayerName()) {
+            window.leaderboard.showPlayerNamePrompt(() => {
+                this.startGameInternal();
+            });
+        } else {
+            this.startGameInternal();
+        }
+    }
+
+    startGameInternal() {
         this.currentLevel = parseInt(this.elements.levelSelect.value);
         this.saveCurrentLevel();
         this.loadLevel(this.currentLevel);
@@ -554,6 +572,11 @@ class SokobanGame {
             this.moves,
             this.time
         );
+
+        // Submit score to leaderboard
+        if (window.leaderboard) {
+            window.leaderboard.submitScore(this.currentLevel, this.moves, this.time);
+        }
 
         // Update level complete modal
         this.elements.completeMoves.textContent = this.moves;

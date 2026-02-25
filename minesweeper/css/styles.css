@@ -220,6 +220,9 @@ button, a, .cell {
     padding: 1rem 2rem 2rem 2rem;
     max-width: 500px;
     width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .game-title {
@@ -1818,4 +1821,140 @@ button, a, .cell {
     .tutorial-message {
         font-size: 0.75rem;
     }
+}
+
+/* ============================================================
+   LEADERBOARD STYLES
+   ============================================================ */
+
+/* Player Info Badge */
+.player-info-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--bg-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-dark);
+}
+
+.player-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.player-name-display {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.btn-change-player {
+    background: transparent;
+    border: 1px solid var(--border-dark);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-change-player:hover {
+    background: var(--btn-primary);
+    color: var(--text-primary);
+}
+
+/* Player Name Modal */
+.player-name-content {
+    text-align: center;
+}
+
+.player-name-content p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.player-name-input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-dark);
+    border-radius: 4px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.player-name-input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+}
+
+.player-name-buttons {
+    flex-direction: column;
+}
+
+/* Leaderboard Modal */
+.leaderboard-modal {
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.leaderboard-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.leaderboard-entry {
+    display: grid;
+    grid-template-columns: 40px 1fr 60px 60px;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.25rem;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.leaderboard-entry.current-player {
+    background: var(--btn-primary);
+    border: 2px solid var(--border-focus);
+}
+
+.leaderboard-rank {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.leaderboard-name {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.leaderboard-time {
+    text-align: center;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.leaderboard-difficulty {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+    color: var(--text-secondary);
+}
+
+.leaderboard-empty {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+.leaderboard-loading {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-secondary);
 }

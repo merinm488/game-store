@@ -137,9 +137,18 @@ const WordUI = {
      * Update best scores display
      */
     updateBestScores() {
+        // Leaderboard module handles updating from TextDB
+        if (window.leaderboard && window.leaderboard.updateMenuBestScore) {
+            window.leaderboard.updateMenuBestScore();
+        }
+        // Also update local best scores as fallback
         const scores = WordGame.getBestScores();
-        this.elements.bestScoreMenu.textContent = scores.bestScore;
-        this.elements.bestLevelMenu.textContent = scores.bestLevel;
+        if (!window.leaderboard?.getOverallBestScore()) {
+            this.elements.bestScoreMenu.textContent = scores.bestScore;
+        }
+        if (!window.leaderboard?.getOverallBestLevel()) {
+            this.elements.bestLevelMenu.textContent = scores.bestLevel;
+        }
     },
 
     /**
@@ -173,6 +182,20 @@ const WordUI = {
      * Start a new game
      */
     startGame() {
+        // Check if leaderboard is ready and prompt for player name if needed
+        if (window.leaderboard && !window.leaderboard.getCurrentPlayerName()) {
+            window.leaderboard.showPlayerNamePrompt(() => {
+                this.proceedWithGameStart();
+            });
+            return;
+        }
+        this.proceedWithGameStart();
+    },
+
+    /**
+     * Actually start the game (after player name check)
+     */
+    proceedWithGameStart() {
         const level = parseInt(this.elements.levelSelect.value);
         WordGame.init(level);
         this.showScreen('gameScreen');
@@ -401,7 +424,7 @@ const WordUI = {
      * Show game over modal
      * @param {boolean} levelComplete
      */
-    showGameOver(levelComplete) {
+    async showGameOver(levelComplete) {
         WordGame.endGame();
 
         this.elements.gameOverTitle.textContent = levelComplete ? 'Level Complete!' : 'Game Over';
@@ -409,11 +432,28 @@ const WordUI = {
         this.elements.finalLevel.textContent = WordGame.state.currentLevel;
         this.elements.finalWords.textContent = WordGame.state.wordsFound.length;
 
+        // Submit score to leaderboard
+        let isNewBestFromLeaderboard = false;
+        if (window.leaderboard && WordGame.state.score > 0) {
+            try {
+                await window.leaderboard.submitScore(
+                    WordGame.state.score,
+                    WordGame.state.currentLevel,
+                    WordGame.state.wordsFound.length
+                );
+                // Check if this is a new best from leaderboard
+                const overallBest = window.leaderboard.getOverallBestScore();
+                isNewBestFromLeaderboard = (overallBest === WordGame.state.score);
+            } catch (error) {
+                console.error('Failed to submit score to leaderboard:', error);
+            }
+        }
+
         // Show/hide next level button
         this.elements.nextLevelBtn.style.display = levelComplete ? 'block' : 'none';
 
-        // Show new record
-        if (WordGame.isNewRecord()) {
+        // Show new record (local or leaderboard)
+        if (WordGame.isNewRecord() || isNewBestFromLeaderboard) {
             this.elements.newBestRecord.classList.add('show');
         } else {
             this.elements.newBestRecord.classList.remove('show');
