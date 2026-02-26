@@ -15,6 +15,9 @@
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="icons/icon-192.png">
 
+    <!-- External ES6 Module: Tippy.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy.css">
+
     <title>Word Puzzle</title>
     <link rel="stylesheet" href="css/themes.css?v=1">
     <link rel="stylesheet" href="css/style.css?v=1">
@@ -315,6 +318,35 @@
             </div>
         </div>
     </div>
+
+    <!-- External ES6 Module: canvas-confetti -->
+    <script type="module">
+        import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/+esm';
+        // Make confetti available globally for the game
+        window.confetti = confetti;
+    </script>
+
+    <!-- External ES6 Module: Tippy.js -->
+    <script type="module">
+        import tippy from 'https://cdn.jsdelivr.net/npm/tippy.js@6/+esm';
+        // Make tippy available globally
+        window.tippy = tippy;
+
+        // Initialize tooltips when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Menu buttons (touch: false disables on mobile)
+            tippy('#playBtn', { content: 'Start a new game', placement: 'bottom', touch: false });
+            tippy('#leaderboard-btn', { content: 'View scoreboard', placement: 'bottom', touch: false });
+            tippy('#settingsBtn', { content: 'Game settings', placement: 'bottom', touch: false });
+            tippy('#howToPlayBtn', { content: 'Learn how to play', placement: 'bottom', touch: false });
+
+            // Game action buttons
+            tippy('#shuffleBtn', { content: 'Shuffle letters', placement: 'top', touch: false });
+            tippy('#clearBtn', { content: 'Clear selection (Esc)', placement: 'top', touch: false });
+            tippy('#submitBtn', { content: 'Submit word (Enter)', placement: 'top', touch: false });
+            tippy('#endGameBtn', { content: 'End game', placement: 'bottom', touch: false });
+        });
+    </script>
 
     <script src="js/dictionary.js?v=1"></script>
     <script src="js/game.js?v=1"></script>

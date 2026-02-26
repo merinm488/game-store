@@ -303,6 +303,8 @@ const WordUI = {
             this.updateGameUI();
 
             if (result.levelComplete) {
+                // Trigger confetti for level complete
+                this.triggerConfetti();
                 setTimeout(() => this.showGameOver(true), 500);
             }
         } else {
@@ -455,6 +457,8 @@ const WordUI = {
         // Show new record (local or leaderboard)
         if (WordGame.isNewRecord() || isNewBestFromLeaderboard) {
             this.elements.newBestRecord.classList.add('show');
+            // Trigger confetti for new best record
+            this.triggerConfetti();
         } else {
             this.elements.newBestRecord.classList.remove('show');
         }
@@ -516,6 +520,43 @@ const WordUI = {
         this.hideModal('gameOverModal');
         this.showScreen('mainMenu');
         this.updateBestScores();
+    },
+
+    /**
+     * Trigger confetti celebration using ES6 canvas-confetti module
+     */
+    triggerConfetti() {
+        if (typeof window.confetti === 'function') {
+            // First burst - center
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#6b4ce0', '#9b59b6', '#3498db', '#2ecc71', '#f1c40f']
+            });
+
+            // Second burst - left side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#6b4ce0', '#9b59b6', '#3498db']
+                });
+            }, 200);
+
+            // Third burst - right side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#2ecc71', '#f1c40f', '#e74c3c']
+                });
+            }, 400);
+        }
     }
 };
 

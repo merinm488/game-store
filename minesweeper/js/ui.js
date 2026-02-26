@@ -529,6 +529,9 @@ const UI = {
             title.textContent = 'You Win!';
             title.style.color = 'var(--number-2)';
 
+            // Trigger confetti celebration using ES6 canvas-confetti module
+            this.triggerConfetti();
+
             if (isNewRecord) {
                 newRecord.classList.remove('hidden');
             } else {
@@ -585,6 +588,43 @@ const UI = {
         const cell = Game.state.board[row][col];
         if (cell && cell.element) {
             cell.element.classList.add('mine-exploded');
+        }
+    },
+
+    /**
+     * Trigger confetti celebration using ES6 canvas-confetti module
+     */
+    triggerConfetti() {
+        if (typeof window.confetti === 'function') {
+            // First burst - center
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#4CAF50', '#2196F3', '#00BCD4', '#8BC34A', '#CDDC39']
+            });
+
+            // Second burst - left side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#4CAF50', '#2196F3', '#00BCD4']
+                });
+            }, 200);
+
+            // Third burst - right side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#8BC34A', '#CDDC39', '#FFEB3B']
+                });
+            }, 400);
         }
     }
 };

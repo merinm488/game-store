@@ -3,7 +3,7 @@
  * Handles player names, time tracking, and leaderboard display using TextDB
  */
 
-import { setup, save, load } from '../../lib/textdbV1.js';
+import { setup, save, load } from 'https://merinm488.github.io/packages/textdb/textdbV1.js';
 
 // ============================================================
 // CONFIGURATION

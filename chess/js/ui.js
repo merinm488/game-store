@@ -549,6 +549,8 @@ const UISystem = (function() {
         if (gameState.opponent === 'ai') {
             if (winner === gameState.playerColor) {
                 recordResult = 'win';
+                // Trigger confetti celebration when player wins
+                triggerConfetti();
             } else {
                 recordResult = 'loss';
             }
@@ -686,6 +688,43 @@ const UISystem = (function() {
         screens.mainMenu?.classList.add('active');
         updateMenuScores();
         AudioSystem.playClick();
+    }
+
+    /**
+     * Trigger confetti celebration using ES6 canvas-confetti module
+     */
+    function triggerConfetti() {
+        if (typeof window.confetti === 'function') {
+            // First burst - center
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#FFD700', '#FFA500', '#FF6347', '#4CAF50', '#2196F3']
+            });
+
+            // Second burst - left side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#FFD700', '#FFA500', '#FF6347']
+                });
+            }, 200);
+
+            // Third burst - right side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#4CAF50', '#2196F3', '#9C27B0']
+                });
+            }, 400);
+        }
     }
 
     // Initialize when DOM is ready

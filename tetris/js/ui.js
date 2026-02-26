@@ -155,6 +155,10 @@ const UI = (function() {
 
         Game.setOnLineClear((count) => {
             Audio.playLineClear(count);
+            // Trigger confetti for Tetris (4 lines cleared)
+            if (count === 4) {
+                triggerConfetti();
+            }
         });
 
         Game.setOnPieceLock(() => {
@@ -278,6 +282,8 @@ const UI = (function() {
         const bestScore = Game.getBestScore();
         if ((score >= bestScore && score > 0) || isNewBestFromLeaderboard) {
             displays.newBest.classList.add('show');
+            // Trigger confetti for new best score
+            triggerConfetti();
         } else {
             displays.newBest.classList.remove('show');
         }
@@ -568,6 +574,43 @@ const UI = (function() {
         Renderer.render();
 
         animationFrameId = requestAnimationFrame(gameLoop);
+    }
+
+    /**
+     * Trigger confetti celebration using ES6 canvas-confetti module
+     */
+    function triggerConfetti() {
+        if (typeof window.confetti === 'function') {
+            // First burst - center
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#e94560', '#0f3460', '#16213e', '#533483', '#E94560']
+            });
+
+            // Second burst - left side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#e94560', '#0f3460', '#16213e']
+                });
+            }, 200);
+
+            // Third burst - right side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#533483', '#E94560', '#FFD700']
+                });
+            }, 400);
+        }
     }
 
     // Initialize when DOM is ready

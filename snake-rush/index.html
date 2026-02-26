@@ -12,6 +12,8 @@
     <link rel="icon" type="image/png" href="icons/icon-192.png">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
+    <!-- External ES6 Module: Tippy.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy.css">
     <link rel="stylesheet" href="css/themes.css?v=3">
     <link rel="stylesheet" href="css/style.css?v=21">
 </head>
@@ -332,7 +334,43 @@
         </div>
     </div>
 
-    <script src="js/audio.js?v=15"></script>
+    <!-- External ES6 Module: canvas-confetti -->
+    <script type="module">
+        import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/+esm';
+        // Make confetti available globally for the game
+        window.confetti = confetti;
+    </script>
+
+    <!-- External ES6 Module: Tone.js Audio System -->
+    <script type="module">
+        import * as AudioSystem from './js/audio-module.js';
+        // Make AudioSystem available globally for compatibility with existing code
+        window.AudioSystem = AudioSystem;
+        // Signal that audio module is ready
+        window.audioModuleReady = true;
+        window.dispatchEvent(new Event('audio-module-ready'));
+    </script>
+
+    <!-- External ES6 Module: Tippy.js -->
+    <script type="module">
+        import tippy from 'https://cdn.jsdelivr.net/npm/tippy.js@6/+esm';
+        // Make tippy available globally
+        window.tippy = tippy;
+
+        // Initialize tooltips when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Menu buttons (touch: false disables on mobile)
+            tippy('#playBtn', { content: 'Start a new game', placement: 'bottom', touch: false });
+            tippy('#leaderboardBtn', { content: 'View high scores', placement: 'bottom', touch: false });
+            tippy('#howToPlayBtn', { content: 'Learn how to play', placement: 'bottom', touch: false });
+            tippy('#settingsBtn', { content: 'Game settings', placement: 'bottom', touch: false });
+
+            // Game controls
+            tippy('#pauseBtn', { content: 'Pause game', placement: 'bottom', touch: false });
+            tippy('#quitBtnHeader', { content: 'Quit to menu', placement: 'bottom', touch: false });
+        });
+    </script>
+
     <script src="js/input.js?v=14"></script>
     <script src="js/renderer.js?v=30"></script>
     <script src="js/game.js?v=42"></script>

@@ -513,6 +513,8 @@ const UISystem = (function() {
                 // High score
                 if (isNewHighScore) {
                     displays.newHighScore.classList.remove('hidden');
+                    // Trigger confetti for new high score
+                    triggerConfetti();
                 } else {
                     displays.newHighScore.classList.add('hidden');
                 }
@@ -560,6 +562,10 @@ const UISystem = (function() {
             (score, targetScore, level) => {
                 displays.levelCompleteScore.textContent = score;
                 displays.levelCompleteTarget.textContent = targetScore;
+
+                // Trigger confetti celebration using ES6 canvas-confetti module
+                triggerConfetti();
+
                 showModal('levelComplete');
             },
             mode,
@@ -601,6 +607,43 @@ const UISystem = (function() {
     function saveAndCloseSettings() {
         // Settings are already auto-saved when changed
         hideModal('settings');
+    }
+
+    /**
+     * Trigger confetti celebration using ES6 canvas-confetti module
+     */
+    function triggerConfetti() {
+        if (typeof window.confetti === 'function') {
+            // First burst - center
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FF9800']
+            });
+
+            // Second burst - left side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#4CAF50', '#8BC34A', '#CDDC39']
+                });
+            }, 200);
+
+            // Third burst - right side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#FFEB3B', '#FF9800', '#FF5722']
+                });
+            }, 400);
+        }
     }
 
     // Initialize when DOM is ready

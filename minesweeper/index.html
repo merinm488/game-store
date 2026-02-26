@@ -10,6 +10,8 @@
     <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icons/icon-192.svg">
+    <!-- External ES6 Module: Tippy.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -294,6 +296,35 @@
             </div>
         </div>
     </div>
+
+    <!-- External ES6 Module: canvas-confetti -->
+    <script type="module">
+        import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/+esm';
+        // Make confetti available globally for the game
+        window.confetti = confetti;
+    </script>
+
+    <!-- External ES6 Module: Tippy.js -->
+    <script type="module">
+        import tippy from 'https://cdn.jsdelivr.net/npm/tippy.js@6/+esm';
+        // Make tippy available globally
+        window.tippy = tippy;
+
+        // Initialize tooltips when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Menu buttons (touch: false disables on mobile)
+            tippy('#play-btn', { content: 'Start a new game', placement: 'bottom', touch: false });
+            tippy('#leaderboard-btn', { content: 'View best times', placement: 'bottom', touch: false });
+            tippy('#guided-play-menu-btn', { content: 'Watch AI solve a board', placement: 'bottom', touch: false });
+            tippy('#settings-btn', { content: 'Game settings', placement: 'bottom', touch: false });
+            tippy('#how-to-play-btn', { content: 'Learn how to play', placement: 'bottom', touch: false });
+
+            // Game controls
+            tippy('#pause-btn', { content: 'Pause game', placement: 'bottom', touch: false });
+            tippy('#quit-to-menu-btn', { content: 'Quit to menu', placement: 'bottom', touch: false });
+            tippy('#restart-btn', { content: 'Restart game', placement: 'bottom', touch: false });
+        });
+    </script>
 
     <script src="js/storage.js"></script>
     <script src="js/audio.js"></script>

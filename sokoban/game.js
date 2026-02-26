@@ -596,7 +596,7 @@ class SokobanGame {
 
         this.playSound('win');
 
-        // Trigger celebration effects
+        // Trigger celebration effects with canvas-confetti ES6 module
         this.triggerCelebration();
 
         // Delay showing the modal by 1 second
@@ -735,8 +735,8 @@ class SokobanGame {
             player.classList.add('celebrating');
         }
 
-        // Create confetti particles
-        this.createConfetti();
+        // Trigger canvas-confetti ES6 module celebration
+        this.triggerConfetti();
 
         // Remove celebration classes after animations complete
         setTimeout(() => {
@@ -753,46 +753,39 @@ class SokobanGame {
         }, 2000);
     }
 
-    createConfetti() {
-        const board = this.elements.gameBoard;
-        const colors = ['#ff9800', '#4caf50', '#2196f3', '#ffeb3b', '#ff5722', '#9c27b0'];
+    triggerConfetti() {
+        // Use canvas-confetti ES6 module (loaded via CDN in index.html)
+        if (typeof window.confetti === 'function') {
+            // First burst - center
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff9800', '#4caf50', '#2196f3', '#ffeb3b', '#ff5722', '#9c27b0']
+            });
 
-        // Create a confetti container that covers the board
-        const container = document.createElement('div');
-        container.className = 'confetti-container';
-        container.style.position = 'absolute';
-        container.style.top = '0';
-        container.style.left = '0';
-        container.style.width = '100%';
-        container.style.height = '100%';
-        container.style.pointerEvents = 'none';
-        container.style.overflow = 'hidden';
-        container.style.zIndex = '10';
-        board.appendChild(container);
+            // Second burst - left side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#ff9800', '#4caf50', '#2196f3']
+                });
+            }, 200);
 
-        // Create 50 confetti pieces
-        for (let i = 0; i < 50; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = `${Math.random() * 100}%`;
-            confetti.style.top = `${Math.random() * 100}%`;
-            confetti.style.animationDelay = `${Math.random() * 0.5}s`;
-
-            const piece = document.createElement('div');
-            piece.className = 'confetti-piece';
-            piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-            piece.style.width = `${Math.random() * 8 + 6}px`;
-            piece.style.height = `${Math.random() * 8 + 6}px`;
-
-            confetti.appendChild(piece);
-            container.appendChild(confetti);
+            // Third burst - right side
+            setTimeout(() => {
+                window.confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#ffeb3b', '#ff5722', '#9c27b0']
+                });
+            }, 400);
         }
-
-        // Remove confetti container after animation
-        setTimeout(() => {
-            container.remove();
-        }, 2500);
     }
 
     // ============================================

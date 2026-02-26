@@ -6,6 +6,8 @@
     <meta name="description" content="Sokoban - Push boxes to targets!">
     <meta name="theme-color" content="#8d6e63">
     <title>Sokoban</title>
+    <!-- External ES6 Module: Tippy.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
@@ -245,6 +247,34 @@
             </div>
         </div>
     </div>
+
+    <!-- External ES6 Module: canvas-confetti -->
+    <script type="module">
+        import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/+esm';
+        // Make confetti available globally for the game
+        window.confetti = confetti;
+    </script>
+
+    <!-- External ES6 Module: Tippy.js -->
+    <script type="module">
+        import tippy from 'https://cdn.jsdelivr.net/npm/tippy.js@6/+esm';
+        // Make tippy available globally
+        window.tippy = tippy;
+
+        // Initialize tooltips when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Menu buttons (touch: false disables on mobile)
+            tippy('#btn-play', { content: 'Start playing', placement: 'bottom', touch: false });
+            tippy('#leaderboard-btn', { content: 'View leaderboard', placement: 'bottom', touch: false });
+            tippy('#btn-how-to-play', { content: 'Learn how to play', placement: 'bottom', touch: false });
+            tippy('#btn-settings', { content: 'Game settings', placement: 'bottom', touch: false });
+
+            // Game controls
+            tippy('#btn-undo', { content: 'Undo last move (Z)', placement: 'bottom', touch: false });
+            tippy('#btn-restart', { content: 'Restart level', placement: 'bottom', touch: false });
+            tippy('#btn-pause', { content: 'Pause game', placement: 'bottom', touch: false });
+        });
+    </script>
 
     <script src="levels.js"></script>
     <script src="game.js"></script>
